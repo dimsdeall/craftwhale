@@ -1,28 +1,29 @@
-description = "SPEC — gali & matangin ide (IDEA) + tulis PRD terstruktur (WHAT/WHY) sebelum plan"
+description = "SPEC — gali & matangin ide (IDEA) + tulis PRD terstruktur (WHAT/WHY) — semua di docs/specs/"
 
 prompt = """
-Invoke the brainstorming skill FIRST — it is the hard-gate for this repo — then spec-driven-development to produce a PRD.
+Invoke the brainstorming skill FIRST — it is the hard-gate for this repo — then spec-driven-development to produce a PRD. ALL outputs live under docs/.
+
+Repo docs root: docs/
+Active specs:   docs/specs/active/<spec-id>/   where <spec-id> = YYYY-MM-DD-<slug> (kebab-case, e.g. 2026-09-13-user-auth)
+Archived specs: docs/specs/archive/<spec-id>/  (moved only when todos 100% checked — see /ship archive rule)
 
 Phase 1 — IDEA (gali & matangin):
-1. Classify the request: Spike / Bounded / Architectural — announce the path out loud so the user can override. If Spike: present feasibility question + probe plan in 2-3 sentences, get approval, investigate cheaply, report recommendation (throwaway code stays labeled throwaway) and stop.
-2. For Bounded/Architectural: explore project context (files, docs, recent commits), then interview one question at a time (prefer multiple-choice) to clarify purpose, constraints, success criteria.
-3. Invoke idea-refine to diverge/converge and stress-test assumptions, then interview-me until ~95% confidence about underlying intent.
-4. Present the refined concept/design in chat (scaled to complexity) and STOP — wait for explicit approval. If hidden complexity is discovered, upgrade the path and re-classify. Do NOT proceed to PRD writing until the concept is approved.
+1. Classify: Spike / Bounded / Architectural — announce the path out loud so the user can override. If Spike: present feasibility question + probe plan in 2-3 sentences, get approval, investigate cheaply, report recommendation (throwaway stays labeled throwaway) and stop — no docs/specs file for Spike unless user asks.
+2. For Bounded/Architectural: explore project context (read docs/specs/active/*/prd.md if any, docs/CONSTRAINTS.md or CONSTRAINTS.md, recent commits, relevant code), then interview one question at a time (prefer multiple-choice) to clarify purpose, constraints, success criteria.
+3. Invoke idea-refine to diverge/converge and stress-test assumptions, then interview-me until ~95% confidence.
+4. Present refined concept in chat (scaled to complexity) and STOP — wait for explicit approval. If hidden complexity discovered, upgrade path and re-classify. Do NOT write PRD until concept approved.
 
-Phase 2 — PRD (tulis PRD — WHAT & WHY):
-5. With the approved concept, ask clarifying questions about goal, target users/personas, and boundaries (always / ask-first / never).
-6. If the request bundles several independently testable capabilities, propose a capability map (module ids, dependency direction, build order) per spec-driven Phase 0 and get it approved before writing the PRD.
-7. Generate a PRD in Markdown as the single source of truth for engineering — WHAT & WHY, not HOW. Structure (adapted from breakdown-feature-prd):
-   1. Feature Name — clear, concise, descriptive
-   2. Epic — link to parent Epic PRD/architecture docs if any (or "—" for standalone)
-   3. Goal — Problem (3-5 sentences, user/business need), Solution (how this feature solves it), Impact (expected outcomes/metrics)
-   4. User Personas — who this is for
-   5. User Stories — "As a <persona>, I want <action> so that <benefit>" — cover primary paths + edge cases
-   6. Requirements — Functional (bulleted, specific, unambiguous) + Non-Functional (performance, security, accessibility, privacy)
-   7. Acceptance Criteria — per user story / major requirement, Given/When/Then or checklist — this validates completeness
-   8. Out of Scope — what is explicitly NOT included to prevent scope creep
-   Save as prd.md (single-feature: prd.md or docs/prd.md; multi-capability Epic: docs/ways-of-work/plan/{epic}/{feature}/prd.md or SPEC-{module}.md per capability map). For Backward compat, SPEC.md is also acceptable if the repo already uses it — but prefer prd.md.
-8. Self-review the PRD for TBD/TODO placeholders, contradictions, scope creep, and ambiguities — fix inline — then ask the user to review the committed PRD before /plan.
+Phase 2 — PRD (tulis PRD — WHAT & WHY) — with collision guard:
+5. With approved concept, ask clarifying questions about goal, personas, and boundaries (always / ask-first / never).
+6. If request bundles several independently testable capabilities, propose a capability map (module ids, dependency direction, build order) per spec-driven Phase 0 and get it approved.
+7. COLLISION GUARD — before writing any file: scan docs/specs/active/*/prd.md, docs/specs/active/*/implementation-plan.md, and docs/specs/active/*/todo.md (or tasks.md). Compare: (a) file/module overlap, (b) capability/module-id overlap, (c) keyword/domain overlap, (d) any active spec with unchecked todos. If overlap detected with any active spec that still has unchecked todos:
+   - STOP and present in chat: which active <spec-id> it touches, why it overlaps (files/modules/keywords), and link to its prd.md.
+   - Ask one question with 3 choices: (a) Gabung — merge PRD baru ke spec aktif yang bersinggungan (append/merge requirements + AC), (b) Pisah — buat spec baru terpisah di docs/specs/active/<new-spec-id>/ (parallel, no merge), (c) Tunda — jangan buat dulu.
+   - Wait for explicit choice. If (a) Gabung: merge into the existing active folder's prd.md (keep history, mark merged section), do NOT create a new folder. If (b) or no overlap: proceed to step 8 to create a new folder.
+8. Generate PRD as single source of truth (WHAT & WHY, not HOW). 8-section structure (from breakdown-feature-prd):
+   1. Feature Name  2. Epic (link or "—")  3. Goal: Problem / Solution / Impact  4. User Personas  5. User Stories "As a <persona>, I want <action> so that <benefit>"  6. Requirements: Functional + Non-Functional  7. Acceptance Criteria (Given/When/Then or checklist)  8. Out of Scope
+   Save to: docs/specs/active/<spec-id>/prd.md  (create folder if needed). If Epic with capability map: one prd.md per module as docs/specs/active/<spec-id>-<module>/prd.md. Never write to repo root or tasks/ — everything under docs/specs/active/.
+9. Self-review PRD for TBD/TODO placeholders, contradictions, scope creep, ambiguities — fix inline — then ask user to review the committed prd.md before /plan. Commit with message like "docs(specs): add prd <spec-id>".
 
-Rules: one question per message; never skip the approval gate; YAGNI ruthlessly; propose 2-3 approaches with trade-offs where relevant. Do not invent requirements. Do not proceed to /plan until the PRD is approved. /plan will consume this PRD to produce the HOW.
+Rules: one question per message; never skip approval gate; YAGNI; 2-3 approaches with trade-offs where relevant; do not invent requirements; do not proceed to /plan until prd.md is approved. New spec = new folder under docs/specs/active/; archive only happens via /ship after todos 100% checked (see archive rule).
 """

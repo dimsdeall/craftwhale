@@ -1,7 +1,7 @@
-description = "EXPLAIN-CODE — jelaskan arsitektur, skema, dan fitur codebase (read-only, opsional)"
+description = "EXPLAIN-CODE — jelaskan arsitektur, skema, dan fitur codebase (read-only, opsional) — outputs ke docs/ bila diminta save"
 
 prompt = """
-Optional explain command — does NOT modify code. Read-only. Explains architecture, schema, and features of an existing codebase.
+Optional explain command — does NOT modify code. Read-only. Explains architecture, schema, and features. All saved outputs live under docs/.
 
 Skills it orchestrates (invoke conditionally — one or more, never all blindly):
 - improve-codebase-architecture — codebase architecture & deep-module opportunities
@@ -9,23 +9,21 @@ Skills it orchestrates (invoke conditionally — one or more, never all blindly)
 - write-feature-docs — feature documentation from existing code
 
 Flow:
-1. Determine what the user wants explained. If they said "arsitektur" → architecture; "skema"/"schema"/"ERD"/"database"/"tabel" → schema; "fitur"/"feature"/"apa aja yang ada" → feature docs. If ambiguous, ask one question with 3 choices:
-   (a) Architecture — struktur modul, seams, deep vs shallow modules, hot spots
+1. Determine what user wants explained. If "arsitektur" → (a) Architecture; "skema"/"schema"/"ERD"/"database"/"tabel" → (b) Schema; "fitur"/"feature"/"apa aja yang ada" → (c) Feature docs. If ambiguous, ask one question with 3 choices:
+   (a) Architecture — struktur modul, seams, deep vs shallow, hot spots
    (b) Schema — data model / DB schema / relations / ERD (Mermaid)
-   (c) Feature — daftar & penjelasan fitur yang sudah ada di codebase
+   (c) Feature — daftar & penjelasan fitur yang sudah ada
    Default if unsure: (a) then offer (b)/(c). Multiple choices allowed.
 
 2. Explore read-only — do not edit code:
-   - For (a): follow improve-codebase-architecture Process §1 Explore — scope via git log hot spots or user-named module, read CONTEXT.md + ADRs, spawn a sub-agent to walk the codebase and note friction (shallow modules, leaky seams, missing locality, untested seams, deletion test). Use codebase-design vocabulary (module/interface/depth/seam/adapter/leverage/locality) — never "component/service/API/boundary".
-   - For (b): follow database-schema-designer — locate schema files (Prisma/Drizzle/SQL/migrations), extract tables/relations/constraints, render Mermaid ERD + table checklist from references/schema-design-checklist.md.
-   - For (c): follow write-feature-docs — scan PRODUCT.md / TECH.md / routes / modules to enumerate features, then produce structured feature docs.
+   - (a): follow improve-codebase-architecture §1 Explore — scope via git log hot spots or user-named module, read docs/CONSTRAINTS.md (or CONSTRAINTS.md legacy) + docs/specs/active/*/prd.md + ADRs in docs/adr/, spawn sub-agent to walk codebase and note friction (shallow modules, leaky seams, missing locality, untested seams, deletion test). Use codebase-design vocabulary — never "component/service/API/boundary".
+   - (b): follow database-schema-designer — locate schema files (Prisma/Drizzle/SQL/migrations), extract tables/relations/constraints, render Mermaid ERD + checklist from references/schema-design-checklist.md.
+   - (c): follow write-feature-docs — scan docs/specs/active/*/prd.md and docs/specs/archive/*/prd.md + routes/modules to enumerate features, then produce structured feature docs.
 
 3. Present:
-   - (a) Architecture: write a self-contained HTML report to $TMPDIR/architecture-review-<timestamp>.html (Tailwind CDN + Mermaid CDN, before/after visuals per candidate, files/problem/solution/benefits/badge, Top recommendation), open it (xdg-open/open/start) and share the absolute path. Also summarize in chat. Do NOT propose interfaces yet — ask "Which of these would you like to explore?" and enter the grilling loop only if the user picks one.
-   - (b) Schema: Mermaid ERD + table of tables/columns/relations + checklist compliance note. Keep as markdown in chat or docs/schema.md if user asks to save.
-   - (c) Feature: markdown feature docs (per-feature: purpose, entry points, key files, data flow, dependencies). Save to docs/features.md only if user explicitly asks.
+   - (a) Architecture: write self-contained HTML to $TMPDIR/architecture-review-<timestamp>.html (Tailwind CDN + Mermaid CDN, before/after visuals per candidate, files/problem/solution/benefits/badge, Top recommendation), open it (xdg-open/open/start) and share absolute path. Also summarize in chat. Additionally, if user asks to save, write markdown snapshot to docs/explain/architecture-<YYYY-MM-DD>.md. Do NOT propose interfaces yet — ask "Which would you like to explore?" and enter grilling loop only if user picks one.
+   - (b) Schema: Mermaid ERD + tables/columns/relations + checklist compliance note. Keep in chat; if user asks to save, write to docs/explain/schema-<YYYY-MM-DD>.md or docs/schema.md (ask which).
+   - (c) Feature: markdown per-feature (purpose, entry points, key files, data flow, dependencies). Keep in chat; if user asks to save, write to docs/explain/features-<YYYY-MM-DD>.md or docs/features.md (ask which).
 
-4. Stay read-only. No code changes, no migrations, no refactors. If the user wants to act on the findings, point them to /spec → /plan → /build.
-
-Rules: never skip the "what to explain" clarification; scope via hot spots when no direction given; use CONTEXT.md terms for the domain; if a candidate contradicts an ADR, surface only when friction warrants reopening (mark with warning callout).
+4. Stay read-only. No code changes, no migrations, no refactors. If user wants to act on findings, point to /spec → /plan → /build. All saved explain outputs live under docs/explain/ (or docs/ root for schema/features if user prefers) — never at repo root or under docs/specs/.
 """

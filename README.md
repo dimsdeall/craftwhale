@@ -99,6 +99,52 @@ IDEA ──→ SPEC ──→ PLAN ──→ BUILD ──→ VERIFY ──→ RE
 
 ## Struktur
 
+Semua output ada di `docs/` — rapi, per-spec satu folder:
+
+```
+project-root/
+├── docs/
+│   ├── CONSTRAINTS.md                 ← /constraints (kanonikal, sekali)
+│   ├── specs/
+│   │   ├── active/                    ← sedang dikerjakan
+│   │   │   ├── 2026-09-13-user-auth/  ← /spec baru = folder baru (YYYY-MM-DD-<slug>)
+│   │   │   │   ├── prd.md             ← /spec — WHAT & WHY (8 section)
+│   │   │   │   ├── implementation-plan.md ← /plan Phase 1 — HOW (5-layer Mermaid + ERD + API)
+│   │   │   │   └── todo.md            ← /plan Phase 2 — ORDER (vertical slices, checklist)
+│   │   │   ├── 2026-09-14-billing/    ← spec kedua — paralel bila tidak bersinggungan
+│   │   │   │   ├── prd.md
+│   │   │   │   ├── implementation-plan.md
+│   │   │   │   └── todo.md
+│   │   │   └── 2026-09-15-notifications/ ← bersinggungan? /spec tanya Gabung/Pisah/Tunda dulu
+│   │   │       ├── prd.md
+│   │   │       ├── implementation-plan.md
+│   │   │       └── todo.md
+│   │   └── archive/                   ← selesai — dipindah otomatis oleh /ship bila todo 100%
+│   │       ├── 2026-09-10-legacy-auth/
+│   │       │   ├── prd.md
+│   │       │   ├── implementation-plan.md
+│   │       │   └── todo.md            ← semua [x] — archive gate lolos
+│   │       └── 2026-09-11-checkout/
+│   ├── adr/                           ← ADR dari /review (bila ada keputusan arsitektur)
+│   │   └── ADR-0001-*.md
+│   └── explain/                       ← /explain-code — bila user minta save (read-only)
+│       ├── architecture-2026-09-13.md
+│       ├── schema-2026-09-13.md
+│       └── features-2026-09-13.md
+├── src/, tests/, package.json, etc.   ← kode — ditulis oleh /build (1 task = 1 commit)
+└── $TMPDIR/architecture-review-*.html  ← /explain-code (a) — HTML report di temp OS, tidak di repo
+```
+
+**Aturan yang Kak minta (sudah di-enforce di commands/*.toml):**
+
+| Aturan | Di mana | Cara kerja |
+|--------|---------|------------|
+| Semua di `docs/` | `docs/specs/active/<spec-id>/` | Tidak ada file docs di root repo atau `tasks/` — semua terkonsolidasi |
+| Spec baru = folder baru | `docs/specs/active/YYYY-MM-DD-<slug>/` | Tiap `/spec` buat `<spec-id>` baru; pengerjaan `/plan` + `/build` baca dari folder spec tersebut |
+| Bersinggungan → tanya | `/spec` step 7 & `/plan` collision guard | Scan `prd.md`/`implementation-plan.md`/`todo.md` aktif (file/module/capability/keyword overlap) + cek unchecked todos → STOP → tanya **(a) Gabung** (merge PRD ke spec aktif), **(b) Pisah** (folder baru paralel), **(c) Tunda** |
+| Selesai → archive | `/ship` step 7 — archive gate | `git mv docs/specs/active/<id> docs/specs/archive/<id>` **hanya bila semua `- [ ]` sudah jadi `- [x]` di `todo.md`**; bila masih ada unchecked → tetap di `active`, tidak di-archive. Tidak pernah archive dari `/build`/`/verify` |
+
+Dipakai oleh `my-skills` sendiri (`~/projects/my-skills`) juga sama:
 ```
 my-skills/
 ├── commands/*.toml                  # 8 slash commands: 6 CORE (SPEC→SHIP) + 2 OPSIONAL
@@ -113,6 +159,9 @@ my-skills/
 │   ├── security-checklist.md
 │   └── testing-patterns.md
 ├── docs/
+│   ├── CONSTRAINTS.md               # kanonikal (ganti root CONSTRAINTS.md)
+│   ├── specs/active/                # spec aktif
+│   └── specs/archive/               # spec selesai (todo 100%)
 ├── AGENTS.md
 ├── plugin.json
 └── README.md

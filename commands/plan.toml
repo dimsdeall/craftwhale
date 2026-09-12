@@ -1,26 +1,28 @@
-description = "PLAN — dari PRD (WHAT/WHY) jadi implementation plan (HOW) + tasks terurut (ORDER)"
+description = "PLAN — dari PRD (WHAT/WHY) jadi implementation plan (HOW) + tasks terurut (ORDER) — semua di docs/specs/"
 
 prompt = """
-Invoke planning-and-task-breakdown as orchestrator, with context-engineering, api-and-interface-design, database-schema-designer, and source-driven-development as needed.
+Invoke planning-and-task-breakdown as orchestrator, with context-engineering, api-and-interface-design, database-schema-designer, and source-driven-development as needed. ALL outputs live under docs/specs/.
 
-Precondition — PRD must exist and be approved: look for prd.md / docs/prd.md / docs/ways-of-work/plan/{epic}/{feature}/prd.md (or SPEC.md legacy fallback). If none exists, stop and tell the user to run /spec first — do not invent requirements.
+Precondition: approved PRD must exist in docs/specs/active/<spec-id>/prd.md (or docs/specs/active/<spec-id>-<module>/prd.md for Epic). If none, stop and tell user to run /spec first — do not invent requirements. Resolve <spec-id> from the PRD path the user just approved, or if ambiguous, ask which active spec to plan (single-choice list of docs/specs/active/*/prd.md).
+
+Collision guard: if docs/specs/active/ contains other specs with unchecked todos and the new plan touches overlapping files/modules (from the new PRD's Requirements), warn exactly like /spec step 7 (overlap + active spec link) and ask Gabung/Pisah/Tunda before writing.
 
 Phase 1 — Implementation Plan (HOW):
-1. Enter plan mode — read only, no code. Read the PRD and relevant codebase sections (patterns, existing schema, ADRs, stack).
-2. Produce a thorough implementation plan in Markdown — the HOW (adapted from breakdown-feature-implementation). Save alongside the PRD (e.g. docs/ways-of-work/plan/{epic}/{feature}/implementation-plan.md or docs/implementation-plan.md for single-feature). Structure:
-   - Goal — restated from PRD (3-5 sentences)
-   - Requirements — bulleted from PRD plus implementation specifics
-   - System Architecture Overview — Mermaid diagram with 5 layered subgraphs: Frontend (components, state) → API (endpoints, auth middleware, validation, routing) → Business Logic (services, rules, workflow, events) → Data (DB, cache, external APIs) → Infrastructure (containers, background services, deploy). Labeled arrows for request/response, transforms, events. Include feature-specific nodes. Add: stack rationale per layer, integration points/boundaries, deployment & scalability.
-   - Database Schema Design — Mermaid ERD + table specs (fields/types/constraints) + indexing strategy + FK relationships + migration/versioning strategy.
-   - API Design — endpoints with full spec, request/response TypeScript types, auth/authz, error codes, rate limiting & caching.
-   - Frontend Architecture — component hierarchy (shadcn/ui if applicable), state flow diagram (Mermaid), reusable component specs, state management (Zustand/React Query), TS interfaces.
-   - Security & Performance — auth/authz, validation/sanitization, perf budgets, caching.
-   Use source-driven-development to verify non-obvious patterns against official docs. Reuse api-and-interface-design and database-schema-designer checklists where relevant.
+1. Enter plan mode — read only, no code. Read docs/specs/active/<spec-id>/prd.md and relevant codebase sections (patterns, schema, ADRs, stack). Also read docs/specs/active/<spec-id>/prd.md's Out of Scope to avoid leaking non-goals into the plan.
+2. Produce thorough implementation-plan.md — the HOW (from breakdown-feature-implementation). Save to docs/specs/active/<spec-id>/implementation-plan.md (same folder as its prd.md — never elsewhere). Structure:
+   - Goal (restated from PRD)
+   - Requirements (bulleted from PRD + impl specifics)
+   - System Architecture Overview — Mermaid with 5 subgraphs: Frontend → API → Business Logic → Data → Infrastructure, labeled arrows, feature-specific nodes, plus stack rationale + integration points + deployment & scalability.
+   - Database Schema Design — Mermaid ERD + table specs + indexes + FK + migration strategy.
+   - API Design — endpoints + TS types + auth/authz + error codes + rate limit/cache.
+   - Frontend Architecture — component hierarchy (shadcn/ui if relevant), state flow Mermaid, reusable specs, Zustand/React Query, TS interfaces.
+   - Security & Performance — auth/authz, validation, perf budgets, caching.
+   Use source-driven-development to verify non-obvious patterns; reuse api-and-interface-design and database-schema-designer checklists.
 
 Phase 2 — Tasks (ORDER):
-3. From PRD + implementation plan, identify the dependency graph and slice vertically: one complete user-visible path per task (e.g. "user can create account: schema + API + UI"), not horizontal layers ("all DB then all API then all UI").
-4. Write tasks to tasks/plan.md and tasks/todo.md per planning-and-task-breakdown format: Title, Description, Acceptance criteria (checklist), Verification (tests / build / manual), Dependencies, Files likely touched, Estimated scope (Small/Medium/Large). Add explicit Checkpoints every 2-3 tasks (all tests pass, build green).
-5. If tasks/plan.md already exists with unchecked tasks for different work, stop and ask before overwriting. Present both artifacts (implementation-plan.md + tasks/plan.md) for human review and wait for approval before /build.
+3. From prd.md + implementation-plan.md, build dependency graph and slice vertically: one complete user-visible path per task (e.g. "user can create account: schema+API+UI"), not horizontal layers.
+4. Write tasks to docs/specs/active/<spec-id>/todo.md (canonical) and echo a human-readable tasks/plan.md symlink or copy if repo prefers tasks/ — but canonical is docs/specs/active/<spec-id>/todo.md. Format per planning-and-task-breakdown: Title, Description, Acceptance criteria (checklist), Verification (tests/build/manual), Dependencies, Files likely touched, Estimated scope (S/M/L). Add Checkpoints every 2-3 tasks (all tests pass, build green). Keep plan.md alongside if user prefers docs/specs/active/<spec-id>/plan.md — either is valid, but todo.md is required for the archive gate.
+5. If docs/specs/active/<spec-id>/todo.md already exists with unchecked tasks for different work, stop and ask before overwriting. Present both artifacts (implementation-plan.md + todo.md) for human review and wait for approval before /build.
 
-Rules: never write code in this command; implementation-plan.md is the bridge between PRD and tasks — tasks must trace back to it; prefer YAGNI and vertical slices.
+Rules: never write code; implementation-plan.md bridges PRD and tasks — tasks must trace back to it; prefer YAGNI and vertical slices; everything under docs/specs/active/<spec-id>/.
 """

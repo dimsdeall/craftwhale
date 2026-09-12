@@ -1,33 +1,25 @@
-description = "CONSTRAINTS — define & enforce quality bar: interview, CONSTRAINTS.md, tools, ratchets, guards"
+description = "CONSTRAINTS — define & enforce quality bar: interview, docs/CONSTRAINTS.md, tools, ratchets, guards"
 
 prompt = """
-Invoke the constraint-driven-development skill.
+Invoke constraint-driven-development. All quality-bar artifacts live under docs/.
 
-Goal: produce a written, numbered quality bar in CONSTRAINTS.md that outlives the session and can be checked mechanically.
+Canonical file: docs/CONSTRAINTS.md (root CONSTRAINTS.md is legacy fallback — read both, but write to docs/CONSTRAINTS.md). All specs under docs/specs/ must respect this file.
 
-1. Detect before you ask — read package.json / pyproject.toml / go.mod, test runner, eslint/biome/ruff config, coverage output, .github/workflows, AGENTS.md. Report what you found in 2 lines. Never ask for what you can read.
-
+1. Detect before you ask — read package.json / pyproject.toml / go.mod, test runner, eslint/biome/ruff config, coverage output, .github/workflows, AGENTS.md, docs/specs/active/*/prd.md (active work), and existing docs/CONSTRAINTS.md or CONSTRAINTS.md. Report what you found in 2 lines. Never ask for what you can read.
 2. Interview — at most 4 questions, one at a time, each with a best guess + default so "I don't know" still produces a working config:
    Q1: Beyond the floor, which dimensions to enforce? (a) coverage (b) security scanning (c) performance budgets (d) accessibility (e) architecture boundaries — guess (a)+(b) if a test runner and user input exist.
    Q2: When a check fails mid-task, block or warn? Default: block on the floor, warn on the rest for 2 weeks.
    Q3: Target numbers or measure today and hold? Default: measure and hold (ratchet).
    Q4: Slowest check tolerated before handing back? Default: ~90s at task end, unlimited in CI.
-   Stop at 4 — more produces a config nobody understands.
-
-3. Write CONSTRAINTS.md at repo root with: Floor (no @ts-ignore/eslint-disable, no throw Not implemented / empty catch, no skipped/deleted tests without reason, no secrets, do not weaken this file), Enforced with numbers (table: Dimension | Rule | Checked by | Runs at — every row names the exact command), Measured not yet enforced (Today + Direction), and Exceptions (ID | Rule | Path | Reason | Owner | Expires ≤90d). Every number needs a stated reason.
-
-4. Install what each picked dimension needs — a dimension with a number and no tool is an aspiration. Use de facto tools: tsc / eslint|biome|ruff, gitleaks --redact, vitest/jest --coverage (+ git diff for changed lines), semgrep, osv-scanner, axe-core, lighthouse, size-limit, dependency-cruiser, Stryker. Add npm scripts check:fast / check:task / check:full mirroring CONSTRAINTS.md (the file is canonical, scripts must mirror it).
-
-5. Wire to lifecycle by cost: BUILD (/build) → types/lint/secrets/floor <5s; VERIFY (/verify) → related tests + changed-lines coverage <90s; REVIEW (/review) → everything + guards (minutes); SHIP (/ship) → direction checks + no regressions (CI). Scope expensive checks to the diff, not the whole repo. Lighthouse/axe need a running URL — if none, drop the dimension.
-
-6. Guard the bar itself — watch the diff for: threshold moved, test got easier (.skip / deleted / assertions removed), checker silenced (@ts-ignore, eslint-disable, istanbul ignore, Stryker disable, nosemgrep, gitleaks:allow), unfinished stubs/TODO, new exception. Tightening is silent; loosening is loud (git diff is enough). Ensure at least one external constraint exists (not judged by the project's own tests).
-
-7. Add one line to AGENTS.md and CLAUDE.md: "Read CONSTRAINTS.md before writing code. Do not weaken it to make a change pass." Run the constraints against the current branch — if anything fails that the user disagrees with, fix the constraint now.
-
-Sub-commands (when CONSTRAINTS.md already exists):
+   Stop at 4.
+3. Write docs/CONSTRAINTS.md at docs/CONSTRAINTS.md (create docs/ if needed) with: Floor (no @ts-ignore/eslint-disable, no throw Not implemented / empty catch, no skipped/deleted tests without reason, no secrets, do not weaken this file), Enforced with numbers (table: Dimension | Rule | Checked by | Runs at — every row names the exact command), Measured not yet enforced (Today + Direction), and Exceptions (ID | Rule | Path | Reason | Owner | Expires ≤90d). Every number needs a stated reason. If a legacy CONSTRAINTS.md exists at root, note that docs/CONSTRAINTS.md is now canonical and keep the root as a one-line pointer or remove it after review.
+4. Install what each picked dimension needs — a dimension with a number and no tool is an aspiration. Use de facto tools: tsc / eslint|biome|ruff, gitleaks --redact, vitest/jest --coverage (+ git diff for changed lines), semgrep, osv-scanner, axe-core, lighthouse, size-limit, dependency-cruiser, Stryker. Add npm scripts check:fast / check:task / check:full mirroring docs/CONSTRAINTS.md (the file is canonical, scripts must mirror it).
+5. Wire to lifecycle by cost: BUILD (/build) → types/lint/secrets/floor <5s; VERIFY (/verify) → related tests + changed-lines coverage <90s; REVIEW (/review) → everything + guards (minutes); SHIP (/ship) → direction checks + no regressions (CI). Scope expensive checks to the diff, not whole repo. Lighthouse/axe need a running URL — if none, drop the dimension.
+6. Guard the bar itself — watch the diff for: threshold moved, test got easier (.skip / deleted / assertions removed), checker silenced (@ts-ignore, eslint-disable, istanbul ignore, Stryker disable, nosemgrep, gitleaks:allow), unfinished stubs/TODO, new exception. Tightening is silent; loosening is loud. Ensure at least one external constraint exists (not judged by the project's own tests).
+7. Add one line to AGENTS.md and CLAUDE.md: "Read docs/CONSTRAINTS.md before writing code. Do not weaken it to make a change pass." Run the constraints against the current branch — if anything fails that the user disagrees with, fix the constraint now.
+Sub-commands (when docs/CONSTRAINTS.md already exists):
 - /constraints check — run current constraints against this branch and report
 - /constraints guard — inspect the diff for a weakened bar
 - /constraints ratchet — record today's measured values as the floor
-
 Do not run the interview in non-interactive contexts (CI, /loop, autonomous). If constraints are missing there, apply the Floor only, note it, and flag the rest for a human.
 """
