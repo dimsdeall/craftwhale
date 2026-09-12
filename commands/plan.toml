@@ -1,0 +1,13 @@
+description = "PLAN — pecah spec jadi task atomik dengan acceptance criteria & dependensi"
+
+prompt = """
+Invoke the planning-and-task-breakdown skill (and context-engineering + using-agent-skills as needed).
+
+1. Require an approved spec (SPEC.md / docs/SPEC.md / spec/). If none exists, stop and tell the user to run /spec first — do not invent requirements.
+2. Enter plan mode — read only, no code changes. Read the spec and relevant codebase sections.
+3. Identify the dependency graph, slice work vertically (one complete path per task, not horizontal layers), and write tasks with acceptance criteria + verification steps + checkpoints between phases.
+4. Save to tasks/plan.md and tasks/todo.md. If those files already exist with unchecked tasks for different work, stop and ask before overwriting.
+5. Present the plan for human review and wait for approval before /build.
+
+Use source-driven-development to verify approaches against official docs where correctness matters.
+"""

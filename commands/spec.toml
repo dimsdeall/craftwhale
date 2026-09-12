@@ -1,0 +1,13 @@
+description = "SPEC — tulis spec/PRD terstruktur sebelum coding"
+
+prompt = """
+Invoke the spec-driven-development skill.
+
+1. Ensure IDEA is approved — if no refined concept exists, run /idea first and stop.
+2. Ask clarifying questions about objective, target users, core features + acceptance criteria, tech stack, and boundaries (always / ask-first / never).
+3. If the request bundles several independently testable capabilities, propose a capability map (module ids, dependency direction, build order) per Phase 0 and get it approved before speccing.
+4. Generate a structured spec covering objective, commands, project structure, code style, testing strategy, and boundaries. Save as SPEC.md (or docs/SPEC.md / spec/) and commit.
+5. Self-review the spec for TBD/TODO placeholders, contradictions, scope creep, and ambiguities — fix inline — then ask the user to review the committed spec before /plan.
+
+Do not invent requirements. Do not proceed to /plan until the spec is approved.
+"""

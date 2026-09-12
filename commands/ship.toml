@@ -1,0 +1,12 @@
+description = "SHIP — checklist rilis, CI/CD, observability, go/no-go"
+
+prompt = """
+Invoke the shipping-and-launch skill as orchestrator, with ci-cd-and-automation, observability-and-instrumentation, and git-workflow-and-versioning as needed.
+
+1. Verify VERIFY and REVIEW are green — if not, stop and complete them first.
+2. Run shipping-and-launch pre-launch checklist: env vars, migrations, monitoring/alerting, feature flags, docs/README/CHANGELOG, rollback plan. Produce a GO / NO-GO decision with blockers, recommended fixes, acknowledged risks, and a rollback procedure (trigger conditions + exact steps + RTO).
+3. Ensure CI/CD is ready via ci-cd-and-automation (GitHub Actions / PM2 / build pipeline for this repo) — no broken workflows, build passes on CI.
+4. Ensure observability via observability-and-instrumentation (logging, metrics, tracing, alerting) so production behavior is diagnosable after launch.
+5. Follow git-workflow-and-versioning for release: clean atomic commits, conventional messages, tagging / version bump, and PR hygiene.
+6. If any Critical blocker exists, default verdict is NO-GO unless the user explicitly accepts the risk. Never ship without an explicit rollback plan.
+"""

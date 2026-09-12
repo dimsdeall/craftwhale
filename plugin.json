@@ -1,6 +1,6 @@
 {
   "name": "my-skills",
-  "version": "0.2.1",
-  "description": "Agent skills milik Dimas Putra (dimsdeall) — 26 skills lifecycle Idea→Ship (brainstorming→observability).",
+  "version": "0.3.0",
+  "description": "Agent skills milik Dimas Putra (dimsdeall) — 26 skills + 7 commands IDEA→SHIP (idea→spec→plan→build→verify→review→ship).",
   "owner": "dimsdeall"
 }

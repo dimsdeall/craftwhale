@@ -1,0 +1,28 @@
+description = "BUILD — bangun incremental, TDD, satu slice satu commit"
+
+prompt = """
+Invoke the incremental-implementation skill alongside test-driven-development.
+
+Modes (arguments select the mode; treat "auto" or "all" as autonomous):
+- /build — implement the next pending task, then stop.
+- /build auto — generate the plan if needed, get one approval, then implement every task without stopping between tasks.
+
+Default (one task):
+1. Pick the next pending task from tasks/plan.md or tasks/todo.md.
+2. Read its acceptance criteria; load relevant context (existing code, patterns, types).
+3. RED: write a failing test for the expected behavior.
+4. GREEN: implement minimum code to pass.
+5. Run full test suite for regressions + run build to verify compilation.
+6. Commit with a descriptive conventional message; mark task complete; stop.
+
+Autonomous (/build auto):
+1. Require a spec (SPEC.md / docs/SPEC.md / spec/). If none, stop and ask for /spec.
+2. Check git status — if uncommitted changes exist outside planning artifacts, ask user to commit/stash/confirm.
+3. If no tasks/plan.md, invoke planning-and-task-breakdown to generate one.
+4. Present full plan and wait for unambiguous affirmative (approve/go/yes) — hedged responses are NOT approved. Commit the plan as a preparatory commit.
+5. Execute every task in dependency order, running the full RED→GREEN→regression→build→commit loop per task. Stage only files that task touched + task-status update; one commit per task.
+6. Stop and ask (do not push through) if: test/build can't pass, spec is ambiguous, or task is high-risk/irreversible (auth, destructive migration, payments, deletions, deploys, secrets) — follow debugging-and-error-recovery or doubt-driven-development and get explicit sign-off. Re-invoke /build auto to resume.
+7. Summarize: tasks completed, tests added, commits made, skipped/flagged items.
+
+Invoke api-and-interface-design or frontend-ui-engineering when the slice touches those surfaces.
+"""

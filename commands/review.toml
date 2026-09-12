@@ -1,0 +1,17 @@
+description = "REVIEW — review 5-axis + simplifikasi + ADR sebelum merge"
+
+prompt = """
+Invoke the code-review-and-quality skill (and related skills as needed).
+
+1. Review staged changes or recent commits across 5 axes:
+   - Correctness — matches spec? edge cases? tests adequate?
+   - Readability — clear names? straightforward logic?
+   - Architecture — follows existing patterns? clean boundaries?
+   - Security — delegate to security-and-hardening for deep check
+   - Performance — delegate to performance-optimization for deep check
+   Categorize findings as Critical / Important / Suggestion with file:line references and fix recommendations.
+2. If recently changed code is complex (deep nesting, long functions, duplication, dead code), invoke code-simplification incrementally — one simplification at a time, tests green after each.
+3. If the change introduces an architectural decision, public API change, or context future engineers will need, invoke documentation-and-adrs to record an ADR.
+4. If the change removes or replaces old systems/APIs/features or migrates data/schema, invoke deprecation-and-migration.
+5. Address Critical findings before /ship. Present the structured review and wait for fixes or explicit risk acceptance.
+"""

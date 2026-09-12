@@ -85,7 +85,8 @@ IDEA ──→ SPEC ──→ PLAN ──→ BUILD ──→ VERIFY ──→ RE
 
 ```
 my-skills/
-├── skills/<nama>/SKILL.md          # tiap skill = 1 folder + 1 SKILL.md (wajib)
+├── commands/*.toml                  # 7 slash commands IDEA→SHIP
+├── skills/<nama>/SKILL.md          # 26 skills, tiap skill = 1 folder + 1 SKILL.md (wajib)
 │   └── scripts/, references/       # opsional per-skill (brainstorming punya)
 ├── references/                      # 7 shared checklist (dipakai banyak skill)
 │   ├── accessibility-checklist.md
@@ -110,6 +111,22 @@ cp -r skills/spec-driven-development skills/nama-baru
 git add skills/nama-baru && git commit -m "feat: add nama-baru" && git push
 # langsung: npx skills add dimsdeall/my-skills --skill nama-baru --list
 ```
+
+## Commands — IDEA → SHIP (7)
+
+Slash commands mapping 1:1 ke lifecycle. Tiap command invoke skill(s) relevan:
+
+| Command | Fase | Skill(s) |
+|---------|------|----------|
+| `/idea` | IDEA | `brainstorming` → `idea-refine` → `interview-me` |
+| `/spec` | SPEC | `spec-driven-development` |
+| `/plan` | PLAN | `planning-and-task-breakdown` + `context-engineering` |
+| `/build` (`/build auto`) | BUILD | `incremental-implementation` + `test-driven-development` |
+| `/verify` | VERIFY | `debugging-and-error-recovery` + `security`/`perf`/`doubt` bila perlu |
+| `/review` | REVIEW | `code-review-and-quality` + `code-simplification` + `documentation-and-adrs` |
+| `/ship` | SHIP | `shipping-and-launch` + `ci-cd-and-automation` + `observability` + `git-workflow` |
+
+File ada di `commands/*.toml` — format `skills` CLI (agenticskills.io) yang dipakai `npx skills add` untuk register command.
 
 ## Instal lokal (OpenCode / Hermes)
 

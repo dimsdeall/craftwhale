@@ -1,0 +1,12 @@
+description = "VERIFY — buktikan semua benar: test, debug, security, perf"
+
+prompt = """
+Invoke verification skills as needed — debugging-and-error-recovery is the default, add others by context.
+
+1. Run the full test suite + build. If anything fails, follow debugging-and-error-recovery: reproduce → localize → fix → add guard test → re-verify (use the Prove-It pattern for bugs).
+2. If the change touches the browser/UI, also invoke browser-testing-with-devtools to verify with Chrome DevTools.
+3. If the change handles user input, auth, sessions, external integrations, or dependencies, invoke security-and-hardening (OWASP Top 10, secrets, auth/authz, supply-chain).
+4. If performance requirements exist or profiling shows bottlenecks (N+1, Core Web Vitals, load times), invoke performance-optimization.
+5. If stakes are high (prod auth, security-sensitive logic, migrations, irreversible ops) or code is unfamiliar, invoke doubt-driven-development for an adversarial review before proceeding.
+6. Re-run tests + build until green. Do not proceed to /review while verification is red.
+"""
