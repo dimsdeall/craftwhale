@@ -1,18 +1,18 @@
 # AGENTS.md — my-skills (dimsdeall)
 
-Koleksi **29 Agent Skills + 8 Commands** — 6 CORE (Spec → Ship) + 2 OPSIONAL. Kontrak: /constraints (sekali, opsional) → /spec → prd.md (WHAT/WHY) → /plan → implementation-plan.md (HOW) + tasks/plan.md (ORDER) → /build → code.
+Koleksi **30 Agent Skills + 8 Commands** — 6 CORE (Spec → Ship) + 2 OPSIONAL. Kontrak: /constraints (sekali, opsional) → /spec → prd.md (WHAT/WHY) → /plan → implementation-plan.md (HOW) + tasks/plan.md (ORDER) → /build → code.
 
 ## Inventory (jangan hapus — source of truth)
 
 - Define (5): `brainstorming`, `interview-me`, `idea-refine`, `spec-driven-development`, `constraint-driven-development`
 - Plan (3): `planning-and-task-breakdown`, `context-engineering`, `using-agent-skills`
 - Build (5): `incremental-implementation`, `test-driven-development`, `api-and-interface-design`, `frontend-ui-engineering`, `source-driven-development`
-- Verify (5): `debugging-and-error-recovery`, `browser-testing-with-devtools`, `security-and-hardening`, `performance-optimization`, `doubt-driven-development`
+- Verify (6): `debugging-and-error-recovery`, `browser-testing-with-devtools`, `webapp-testing` (opsional — hanya web, Playwright + with_server.py, Anthropic), `security-and-hardening`, `performance-optimization`, `doubt-driven-development`
 - Review (4): `code-review-and-quality`, `code-simplification`, `documentation-and-adrs`, `deprecation-and-migration`
 - Ship & Operate (4): `git-workflow-and-versioning`, `ci-cd-and-automation`, `shipping-and-launch`, `observability-and-instrumentation`
 - Explain (3, opsional — read-only): `improve-codebase-architecture` (mattpocock/skills), `database-schema-designer` (softaworks/agent-toolkit), `write-feature-docs` (warpdotdev/common-skills)
 - Shared `references/`: 7 checklist (accessibility, definition-of-done, observability, orchestration, performance, security, testing)
-- Commands `commands/*.toml` (8): **CORE 6** `/spec` → `brainstorming+idea-refine+interview-me+spec-driven` → `prd.md` (WHAT/WHY, 8-section PRD), `/plan` → `planning+context+api/database` → `implementation-plan.md` (HOW, 5-layer Mermaid + DB ERD + API + frontend) + `tasks/plan.md` (ORDER, vertical slices), `/build` → `incremental+TDD`, `/verify` → `debugging+security/perf/doubt`, `/review` → `code-review+code-simplification+ADRs`, `/ship` → `shipping+CI/CD+observability+git` — **OPSIONAL 2** `/constraints` → `constraint-driven` (interview 4Q → CONSTRAINTS.md), `/explain-code` → `improve-codebase-architecture+database-schema-designer+write-feature-docs` (a/b/c, read-only)
+- Commands `commands/*.toml` (8): **CORE 6** `/spec` → `brainstorming+idea-refine+interview-me+spec-driven` → `prd.md` (WHAT/WHY, 8-section PRD), `/plan` → `planning+context+api/database` → `implementation-plan.md` (HOW, 5-layer Mermaid + DB ERD + API + frontend) + `tasks/plan.md` (ORDER, vertical slices), `/build` → `incremental+TDD`, `/verify` → `debugging+security/perf/doubt+webapp-testing` (web opsional — skip bila bukan web), `/review` → `code-review+code-simplification+ADRs`, `/ship` → `shipping+CI/CD+observability+git` — **OPSIONAL 2** `/constraints` → `constraint-driven` (interview 4Q → CONSTRAINTS.md), `/explain-code` → `improve-codebase-architecture+database-schema-designer+write-feature-docs` (a/b/c, read-only)
 
 ## Aturan untuk AI agent yang ngerjain repo ini
 
@@ -29,6 +29,7 @@ Koleksi **29 Agent Skills + 8 Commands** — 6 CORE (Spec → Ship) + 2 OPSIONAL
 - Ada spec, mau pecah task → `planning-and-task-breakdown`
 - Butuh konteks repo → `context-engineering` / `source-driven-development`
 - Nulis kode → `incremental-implementation` + `test-driven-development` (+ `api-and-interface-design` / `frontend-ui-engineering` bila relevan)
+- Verifikasi web (opsional — hanya bila webapp/UI) → `webapp-testing` (Playwright + with_server.py) atau `browser-testing-with-devtools` — skip bila bukan web
 - Bug / error → `debugging-and-error-recovery` (+ `doubt-driven-development` bila stakes tinggi)
 - Review → `code-review-and-quality` → `code-simplification` bila perlu
 - Commit/PR → `git-workflow-and-versioning`
@@ -43,3 +44,4 @@ Koleksi **29 Agent Skills + 8 Commands** — 6 CORE (Spec → Ship) + 2 OPSIONAL
 - 1 skill `improve-codebase-architecture` dari `mattpocock/skills` (MIT, 915K)
 - 1 skill `database-schema-designer` dari `softaworks/agent-toolkit` (MIT)
 - 1 skill `write-feature-docs` dari `warpdotdev/common-skills` (MIT)
+- 1 skill `webapp-testing` dari `anthropics/skills` (MIT, Playwright + with_server.py)

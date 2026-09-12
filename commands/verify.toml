@@ -1,13 +1,16 @@
 description = "VERIFY — buktikan semua benar: test, debug, security, perf — untuk spec aktif di docs/specs/active/<spec-id>"
 
 prompt = """
-Invoke verification skills as needed — debugging-and-error-recovery is the default, add others by context. Scope is the active spec in docs/specs/.
+Invoke verification skills as needed — debugging-and-error-recovery is the default, add others by context. Scope is the active spec in docs/specs/. Not all projects are web — web verification is optional.
 
 Active spec resolution: same as /build — if docs/specs/active/ has one folder with unchecked todos, use it; if multiple, ask which <spec-id> to verify; if none has unchecked todos, verify the most recent archived spec only if user explicitly names it, otherwise verify the current branch in general.
 
 1. Run full test suite + build. If anything fails, follow debugging-and-error-recovery: reproduce → localize → fix → add guard test → re-verify (Prove-It pattern). Guard tests live in tests/ per repo convention, not in docs/.
 2. Scope checks to files touched by docs/specs/active/<spec-id>/todo.md and implementation-plan.md — not the whole repo — so verification matches what that spec changed.
-3. If change touches browser/UI, also invoke browser-testing-with-devtools to verify with Chrome DevTools.
+3. Web verification — OPTIONAL, only if the project is a webapp or the change touches browser/UI. If applicable, choose one:
+   - browser-testing-with-devtools — Chrome DevTools based
+   - webapp-testing — Playwright + scripts/with_server.py (recommended for local webapps that need a server: python scripts/with_server.py --server "npm run dev" --port <port> -- python your_script.py; always wait for networkidle before inspect; reconnaissance-then-action: screenshot/inspect DOM → identify selectors → execute; scripts are black-box — run --help first, don't read source until needed; sync_playwright, headless chromium, examples in examples/)
+   Skip this step entirely for non-web projects (CLI, library, API-only, cron, etc.) — no web check is required.
 4. If change handles user input, auth, sessions, external integrations, or dependencies, invoke security-and-hardening (OWASP, secrets, auth/authz, supply-chain) — check against docs/CONSTRAINTS.md (or CONSTRAINTS.md legacy) if present.
 5. If performance requirements exist or profiling shows bottlenecks (N+1, Core Web Vitals, load times), invoke performance-optimization.
 6. If stakes are high (prod auth, security-sensitive, migrations, irreversible ops) or code is unfamiliar, invoke doubt-driven-development for an adversarial review.

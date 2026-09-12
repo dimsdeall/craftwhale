@@ -1,6 +1,6 @@
 # my-skills — Dimas Putra (dimsdeall)
 
-Kumpulan **Agent Skills** lifecycle lengkap Idea → Ship. Dikurasi dari [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) (25 skills) + [obra/superpowers — brainstorming](https://agenticskills.io/skills/brainstorming) + 3 explain skills (architecture/schema/feature). Total **29 skills**.
+Kumpulan **Agent Skills** lifecycle lengkap Idea → Ship. Dikurasi dari [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) (25 skills) + [obra/superpowers — brainstorming](https://agenticskills.io/skills/brainstorming) + 3 explain skills (architecture/schema/feature) + 1 web verification. Total **30 skills**.
 
 Pasang via CLI `skills` (70+ agent: Claude Code, Codex, Cursor, OpenCode, Hermes, dll):
 
@@ -38,7 +38,7 @@ IDEA ──→ SPEC ──→ PLAN ──→ BUILD ──→ VERIFY ──→ RE
 - `/plan`  → `implementation-plan.md` (HOW) + `tasks/plan.md` (ORDER) — approval
 - `/build` → code (RED→GREEN per task)
 
-## Daftar Skill (29)
+## Daftar Skill (30)
 
 ### Define — Mau bikin apa? (5)
 | Skill | Deskripsi |
@@ -65,7 +65,7 @@ IDEA ──→ SPEC ──→ PLAN ──→ BUILD ──→ VERIFY ──→ RE
 | `frontend-ui-engineering` | Engineering UI |
 | `source-driven-development` | Bukti dari docs/code sebelum nulis |
 
-### Verify — Yakin bener? (5)
+### Verify — Yakin bener? (6, web opsional)
 | Skill | Deskripsi |
 |-------|-----------|
 | `debugging-and-error-recovery` | Reproduksi → lokalisasi → fix → guard |
@@ -73,6 +73,7 @@ IDEA ──→ SPEC ──→ PLAN ──→ BUILD ──→ VERIFY ──→ RE
 | `security-and-hardening` | Hardening & vulnerability check |
 | `performance-optimization` | Optimasi performa |
 | `doubt-driven-development` | Stakes tinggi / code asing — verifikasi ekstra |
+| `webapp-testing` | **Opsional — hanya web** — Playwright + `with_server.py`, screenshot & console log (Anthropic) |
 
 ### Review — Layak merge? (4)
 | Skill | Deskripsi |
@@ -147,8 +148,8 @@ project-root/
 Dipakai oleh `my-skills` sendiri (`~/projects/my-skills`) juga sama:
 ```
 my-skills/
-├── commands/*.toml                  # 8 slash commands: 6 CORE (SPEC→SHIP) + 2 OPSIONAL
-├── skills/<nama>/SKILL.md          # 29 skills, tiap skill = 1 folder + 1 SKILL.md (wajib)
+├── commands/*.toml                  # 8 slash commands: 6 CORE (SPEC→SHIP) + 2 OPSIONAL (web verify opsional di /verify)
+├── skills/<nama>/SKILL.md          # 30 skills, tiap skill = 1 folder + 1 SKILL.md (wajib)
 │   └── scripts/, references/       # opsional per-skill (brainstorming punya)
 ├── references/                      # 7 shared checklist (dipakai banyak skill)
 │   ├── accessibility-checklist.md
@@ -186,7 +187,7 @@ git add skills/nama-baru && git commit -m "feat: add nama-baru" && git push
 | `/spec` | SPEC — PRD (WHAT & WHY) | `brainstorming` → `idea-refine` → `interview-me` → `spec-driven-development` → `prd.md` |
 | `/plan` | PLAN — impl plan (HOW) + tasks (ORDER) | `planning-and-task-breakdown` + `context-engineering` + `api/database` (kondisional) → `implementation-plan.md` + `tasks/plan.md` |
 | `/build` (`/build auto`) | BUILD | `incremental-implementation` + `test-driven-development` |
-| `/verify` | VERIFY | `debugging-and-error-recovery` + `security`/`perf`/`doubt` bila perlu |
+| `/verify` | VERIFY | `debugging-and-error-recovery` + `security`/`perf`/`doubt`/`webapp-testing` (web opsional) |
 | `/review` | REVIEW | `code-review-and-quality` + `code-simplification` + `documentation-and-adrs` |
 | `/ship` | SHIP | `shipping-and-launch` + `ci-cd-and-automation` + `observability` + `git-workflow` |
 
