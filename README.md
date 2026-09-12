@@ -85,7 +85,7 @@ IDEA ──→ SPEC ──→ PLAN ──→ BUILD ──→ VERIFY ──→ RE
 
 ```
 my-skills/
-├── commands/*.toml                  # 6 slash commands SPEC→SHIP (SPEC = IDEA+SPEC)
+├── commands/*.toml                  # 7 slash commands (SPEC→SHIP + CONSTRAINTS)
 ├── skills/<nama>/SKILL.md          # 26 skills, tiap skill = 1 folder + 1 SKILL.md (wajib)
 │   └── scripts/, references/       # opsional per-skill (brainstorming punya)
 ├── references/                      # 7 shared checklist (dipakai banyak skill)
@@ -112,12 +112,13 @@ git add skills/nama-baru && git commit -m "feat: add nama-baru" && git push
 # langsung: npx skills add dimsdeall/my-skills --skill nama-baru --list
 ```
 
-## Commands — SPEC → SHIP (6)
+## Commands — SPEC → SHIP + CONSTRAINTS (7)
 
-Slash commands mapping 1:1 ke lifecycle. `/spec` sekarang gabungan IDEA+SPEC:
+Slash commands mapping 1:1 ke lifecycle. `/spec` = IDEA+SPEC, `/constraints` setup quality bar:
 
 | Command | Fase | Skill(s) |
 |---------|------|----------|
+| `/constraints` | SETUP (sekali di awal / saat bar belum ada) | `constraint-driven-development` — interview 4Q → `CONSTRAINTS.md` + install tools + ratchets + guards |
 | `/spec` | SPEC (IDEA+SPEC) | `brainstorming` → `idea-refine` → `interview-me` → `spec-driven-development` |
 | `/plan` | PLAN | `planning-and-task-breakdown` + `context-engineering` |
 | `/build` (`/build auto`) | BUILD | `incremental-implementation` + `test-driven-development` |

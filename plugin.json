@@ -1,6 +1,6 @@
 {
   "name": "my-skills",
-  "version": "0.3.1",
-  "description": "Agent skills milik Dimas Putra (dimsdeall) — 26 skills + 6 commands SPEC→SHIP (/spec = IDEA+SPEC).",
+  "version": "0.3.2",
+  "description": "Agent skills milik Dimas Putra (dimsdeall) — 26 skills + 7 commands SPEC→SHIP+CONSTRAINTS (/spec = IDEA+SPEC, /constraints = quality bar).",
   "owner": "dimsdeall"
 }
