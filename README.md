@@ -1,6 +1,6 @@
 # my-skills — Dimas Putra (dimsdeall)
 
-Kumpulan **Agent Skills** milik Kak Dimas — lifecycle lengkap dari idea → ship, plus workflow khusus Hermes & 9Router. Dikurasi dari [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) (25 skills) + [obra/superpowers — brainstorming](https://agenticskills.io/skills/brainstorming) + 3 skill custom milik sendiri. Total **29 skills**.
+Kumpulan **Agent Skills** lifecycle lengkap Idea → Ship. Dikurasi dari [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) (25 skills) + [obra/superpowers — brainstorming](https://agenticskills.io/skills/brainstorming). Total **26 skills**.
 
 Pasang via CLI `skills` (70+ agent: Claude Code, Codex, Cursor, OpenCode, Hermes, dll):
 
@@ -29,14 +29,7 @@ IDEA ──→ SPEC ──→ PLAN ──→ BUILD ──→ VERIFY ──→ RE
                                 +source-driven
 ```
 
-## Daftar Skill (29)
-
-### Custom milik Dimas (3)
-| Skill | Deskripsi |
-|-------|-----------|
-| `hello-world` | Template minimal — tes instalasi & starter skill baru |
-| `hermes-workflow` | Workflow Hermes Agent: cron + Combi-hermes via 9router + gaya Minji |
-| `9router-ops` | Operasional 9Router gateway (PM2, build, update) |
+## Daftar Skill (26)
 
 ### Define — Mau bikin apa? (5)
 | Skill | Deskripsi |
@@ -103,7 +96,7 @@ my-skills/
 │   ├── security-checklist.md
 │   └── testing-patterns.md
 ├── docs/
-├── AGENTS.md                        # panduan AI agent yang ngerjain repo ini
+├── AGENTS.md
 ├── plugin.json
 └── README.md
 ```
@@ -111,7 +104,8 @@ my-skills/
 ## Cara buat skill baru
 
 ```bash
-cp -r skills/hello-world skills/nama-baru
+# duplikasi skill terdekat sebagai template
+cp -r skills/spec-driven-development skills/nama-baru
 # edit skills/nama-baru/SKILL.md -> ganti name & description (harus == nama folder)
 git add skills/nama-baru && git commit -m "feat: add nama-baru" && git push
 # langsung: npx skills add dimsdeall/my-skills --skill nama-baru --list
@@ -122,9 +116,6 @@ git add skills/nama-baru && git commit -m "feat: add nama-baru" && git push
 ```bash
 mkdir -p .opencode/skills
 cp -r ~/projects/my-skills/skills/<nama> .opencode/skills/
-# atau global
-mkdir -p ~/.config/opencode/skills
-cp -r ~/projects/my-skills/skills/<nama> ~/.config/opencode/skills/
 ```
 
 ## Lisensi
