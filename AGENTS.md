@@ -1,6 +1,6 @@
 # AGENTS.md — my-skills (dimsdeall)
 
-Koleksi **26 Agent Skills + 7 Commands** — lifecycle Spec → Ship (Spec = Idea+Spec) + Constraints.
+Koleksi **29 Agent Skills + 8 Commands** — 6 CORE (Spec → Ship) + 2 OPSIONAL.
 
 ## Inventory (jangan hapus — source of truth)
 
@@ -10,8 +10,9 @@ Koleksi **26 Agent Skills + 7 Commands** — lifecycle Spec → Ship (Spec = Ide
 - Verify (5): `debugging-and-error-recovery`, `browser-testing-with-devtools`, `security-and-hardening`, `performance-optimization`, `doubt-driven-development`
 - Review (4): `code-review-and-quality`, `code-simplification`, `documentation-and-adrs`, `deprecation-and-migration`
 - Ship & Operate (4): `git-workflow-and-versioning`, `ci-cd-and-automation`, `shipping-and-launch`, `observability-and-instrumentation`
+- Explain (3, opsional — read-only): `improve-codebase-architecture` (mattpocock/skills), `database-schema-designer` (softaworks/agent-toolkit), `write-feature-docs` (warpdotdev/common-skills)
 - Shared `references/`: 7 checklist (accessibility, definition-of-done, observability, orchestration, performance, security, testing)
-- Commands `commands/*.toml` (7): `/constraints` → `constraint-driven` (interview 4Q → CONSTRAINTS.md), `/spec` → `brainstorming+idea-refine+interview-me+spec-driven` (IDEA+SPEC), `/plan` → `planning+context`, `/build` → `incremental+TDD`, `/verify` → `debugging+security/perf/doubt`, `/review` → `code-review+code-simplification+ADRs`, `/ship` → `shipping+CI/CD+observability+git`
+- Commands `commands/*.toml` (8): **CORE 6** `/spec` → `brainstorming+idea-refine+interview-me+spec-driven` (IDEA+SPEC), `/plan` → `planning+context`, `/build` → `incremental+TDD`, `/verify` → `debugging+security/perf/doubt`, `/review` → `code-review+code-simplification+ADRs`, `/ship` → `shipping+CI/CD+observability+git` — **OPSIONAL 2** `/constraints` → `constraint-driven` (interview 4Q → CONSTRAINTS.md), `/explain-code` → `improve-codebase-architecture+database-schema-designer+write-feature-docs` (a/b/c, read-only)
 
 ## Aturan untuk AI agent yang ngerjain repo ini
 
@@ -32,8 +33,13 @@ Koleksi **26 Agent Skills + 7 Commands** — lifecycle Spec → Ship (Spec = Ide
 - Review → `code-review-and-quality` → `code-simplification` bila perlu
 - Commit/PR → `git-workflow-and-versioning`
 - CI/CD, rilis, monitor → `ci-cd-and-automation`, `shipping-and-launch`, `observability-and-instrumentation`
+- Mau jelaskan arsitektur/skema/fitur (read-only) → `/explain-code` → `improve-codebase-architecture` / `database-schema-designer` / `write-feature-docs`
+- Mau quality bar → `/constraints` → `constraint-driven-development`
 
 ## Provenance
 
 - 25 skills dari `addyosmani/agent-skills` (MIT)
 - 1 skill `brainstorming` dari `obra/superpowers` (MIT, S-rank)
+- 1 skill `improve-codebase-architecture` dari `mattpocock/skills` (MIT, 915K)
+- 1 skill `database-schema-designer` dari `softaworks/agent-toolkit` (MIT)
+- 1 skill `write-feature-docs` dari `warpdotdev/common-skills` (MIT)

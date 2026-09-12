@@ -1,6 +1,6 @@
 # my-skills — Dimas Putra (dimsdeall)
 
-Kumpulan **Agent Skills** lifecycle lengkap Idea → Ship. Dikurasi dari [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) (25 skills) + [obra/superpowers — brainstorming](https://agenticskills.io/skills/brainstorming). Total **26 skills**.
+Kumpulan **Agent Skills** lifecycle lengkap Idea → Ship. Dikurasi dari [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) (25 skills) + [obra/superpowers — brainstorming](https://agenticskills.io/skills/brainstorming) + 3 explain skills (architecture/schema/feature). Total **29 skills**.
 
 Pasang via CLI `skills` (70+ agent: Claude Code, Codex, Cursor, OpenCode, Hermes, dll):
 
@@ -29,7 +29,7 @@ IDEA ──→ SPEC ──→ PLAN ──→ BUILD ──→ VERIFY ──→ RE
                                 +source-driven
 ```
 
-## Daftar Skill (26)
+## Daftar Skill (29)
 
 ### Define — Mau bikin apa? (5)
 | Skill | Deskripsi |
@@ -81,12 +81,19 @@ IDEA ──→ SPEC ──→ PLAN ──→ BUILD ──→ VERIFY ──→ RE
 | `shipping-and-launch` | Checklist rilis & go-live |
 | `observability-and-instrumentation` | Log, metrik, alert, monitoring |
 
+### Explain — Jelaskan yang sudah ada (3, opsional — read-only)
+| Skill | Deskripsi | Sumber |
+|-------|-----------|--------|
+| `improve-codebase-architecture` | Scan arsitektur, deep-module opportunities, HTML report + Mermaid (915K) | `mattpocock/skills` |
+| `database-schema-designer` | Desain & jelaskan DB/data-model schema, ERD, checklist | `softaworks/agent-toolkit` |
+| `write-feature-docs` | Dokumentasi fitur dari codebase yang sudah ada | `warpdotdev/common-skills` |
+
 ## Struktur
 
 ```
 my-skills/
-├── commands/*.toml                  # 7 slash commands (SPEC→SHIP + CONSTRAINTS)
-├── skills/<nama>/SKILL.md          # 26 skills, tiap skill = 1 folder + 1 SKILL.md (wajib)
+├── commands/*.toml                  # 8 slash commands: 6 CORE (SPEC→SHIP) + 2 OPSIONAL
+├── skills/<nama>/SKILL.md          # 29 skills, tiap skill = 1 folder + 1 SKILL.md (wajib)
 │   └── scripts/, references/       # opsional per-skill (brainstorming punya)
 ├── references/                      # 7 shared checklist (dipakai banyak skill)
 │   ├── accessibility-checklist.md
@@ -112,19 +119,25 @@ git add skills/nama-baru && git commit -m "feat: add nama-baru" && git push
 # langsung: npx skills add dimsdeall/my-skills --skill nama-baru --list
 ```
 
-## Commands — SPEC → SHIP + CONSTRAINTS (7)
+## Commands — 6 CORE + 2 OPSIONAL (8)
 
-Slash commands mapping 1:1 ke lifecycle. `/spec` = IDEA+SPEC, `/constraints` setup quality bar:
+**CORE — lifecycle SPEC → SHIP** (dipakai tiap fitur):
 
 | Command | Fase | Skill(s) |
 |---------|------|----------|
-| `/constraints` | SETUP (sekali di awal / saat bar belum ada) | `constraint-driven-development` — interview 4Q → `CONSTRAINTS.md` + install tools + ratchets + guards |
 | `/spec` | SPEC (IDEA+SPEC) | `brainstorming` → `idea-refine` → `interview-me` → `spec-driven-development` |
 | `/plan` | PLAN | `planning-and-task-breakdown` + `context-engineering` |
 | `/build` (`/build auto`) | BUILD | `incremental-implementation` + `test-driven-development` |
 | `/verify` | VERIFY | `debugging-and-error-recovery` + `security`/`perf`/`doubt` bila perlu |
 | `/review` | REVIEW | `code-review-and-quality` + `code-simplification` + `documentation-and-adrs` |
 | `/ship` | SHIP | `shipping-and-launch` + `ci-cd-and-automation` + `observability` + `git-workflow` |
+
+**OPSIONAL — tidak termasuk lifecycle development, tapi tetap ada sebagai command:**
+
+| Command | Kapan | Skill(s) |
+|---------|-------|----------|
+| `/constraints` | SETUP (sekali di awal / saat bar belum ada) | `constraint-driven-development` — interview 4Q → `CONSTRAINTS.md` + install tools + ratchets + guards |
+| `/explain-code` | Kapan pun (read-only, tidak ubah kode) | `improve-codebase-architecture` (arsitektur) + `database-schema-designer` (skema) + `write-feature-docs` (fitur) — pilih a/b/c, bisa kombinasi |
 
 File ada di `commands/*.toml` — format `skills` CLI (agenticskills.io) yang dipakai `npx skills add` untuk register command.
 
