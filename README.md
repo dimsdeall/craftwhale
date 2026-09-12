@@ -1,222 +1,95 @@
 # my-skills — Dimas Putra (dimsdeall)
 
-Kumpulan **Agent Skills** lifecycle lengkap Idea → Ship. Dikurasi dari [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) (25 skills) + [obra/superpowers — brainstorming](https://agenticskills.io/skills/brainstorming) + 3 explain skills (architecture/schema/feature) + 1 web verification. Total **30 skills**.
+> **English** | [Indonesia](README.id.md)
 
-Pasang via CLI `skills` (70+ agent: Claude Code, Codex, Cursor, OpenCode, Hermes, dll):
+Production-grade agent skills — a full **Idea → Ship** lifecycle. 30 skills + 2 personas + 8 slash commands, curated from open sources and wired to work together under one contract.
+
+## Install
+
+This repo is **private** — run `gh auth login` as `dimsdeall` or be added as collaborator. Works with 70+ agents (Claude Code, Cursor, Codex, Copilot, Cline, OpenCode, Hermes, etc.) via the open `skills` CLI.
 
 ```bash
-# lihat dulu apa aja yang ada
+# browse first
 npx skills add dimsdeall/my-skills --list
 
-# pasang semua
+# install everything (30 skills + 8 commands + 2 personas)
 npx skills add dimsdeall/my-skills
 
-# pasang satu skill aja
+# or one skill
 npx skills add dimsdeall/my-skills --skill brainstorming
-npx skills add dimsdeall/my-skills --skill spec-driven-development
 ```
 
-> Repo ini **private** — instal butuh `gh auth login` sebagai `dimsdeall` atau jadi collaborator.
+Updating & manual install → [docs/installation.md](docs/installation.md)
 
-## Lifecycle — Idea → Ship
+## Lifecycle
 
 ```
-/constraints (opsional, sekali — quality bar)
+/constraints (optional, once)
     │
 IDEA ──→ SPEC ──→ PLAN ──→ BUILD ──→ VERIFY ──→ REVIEW ──→ SHIP ──→ OPERATE
-  │        │       │        │         │          │        │        │
-  brainstorm  spec   planning incremental debug  code   shipping observability
-  interview  (PRD)  (HOW+    + TDD   +recovery review + CI/CD  + monitor
-  idea-refine WHAT/  ORDER)  +context                 + deprecation
-              WHY   impl-plan +source-driven
-                    + tasks
 ```
 
-**Kontrak per fase (yang Kak setujui):**
-- `/constraints` — sekali di awal (opsional)
-- `/spec`  → `prd.md` (WHAT & WHY) — approval
-- `/plan`  → `implementation-plan.md` (HOW) + `tasks/plan.md` (ORDER) — approval
-- `/build` → code (RED→GREEN per task)
+- `/constraints` once → `/spec` → `prd.md` (WHAT & WHY) → `/plan` → `implementation-plan.md` (HOW) + `todo.md` (ORDER) → `/build` → code → `/verify` → green → `/review` → report → `/ship` → GO/NO-GO + archive.
 
-## Daftar Skill (30)
+Details → [docs/lifecycle.md](docs/lifecycle.md)
 
-### Define — Mau bikin apa? (5)
-| Skill | Deskripsi |
-|-------|-----------|
-| `brainstorming` | **Gerbang pertama** — klasifikasi Spike/Bounded/Architectural, Socratic refinement, hard-gate approval sebelum coding (obra/superpowers, S-rank) |
-| `interview-me` | Interogasi requirement satu pertanyaan per pesan |
-| `idea-refine` | Varian ide & pematangan konsep |
-| `spec-driven-development` | Tulis spec/PRD sebelum coding — source of truth |
-| `constraint-driven-development` | Tetapkan quality bar sekali, enforce di mana-mana |
+## Skills (30)
 
-### Plan — Gimana ngerjainnya? (3)
-| Skill | Deskripsi |
-|-------|-----------|
-| `planning-and-task-breakdown` | Pecah spec jadi task atomik + acceptance criteria |
-| `context-engineering` | Siapkan konteks repo: struktur, pola existing |
-| `using-agent-skills` | Meta-skill — routing intent → skill yang tepat |
+Curated from `addyosmani/agent-skills` (25), `obra/superpowers — brainstorming` (1), `mattpocock/skills` (1), `softaworks/agent-toolkit` (1), `warpdotdev/common-skills` (1), and `anthropics/skills` (1).
 
-### Build — Ngerjainnya (5)
-| Skill | Deskripsi |
-|-------|-----------|
-| `incremental-implementation` | Satu slice satu commit, jangan big bang |
-| `test-driven-development` | RED-GREEN-REFACTOR, coverage 80%+ |
-| `api-and-interface-design` | Desain API & interface |
-| `frontend-ui-engineering` | Engineering UI |
-| `source-driven-development` | Bukti dari docs/code sebelum nulis |
+| Group | Count | Docs |
+|-------|-------|------|
+| Define | 5 | [docs/skills.md#Define](docs/skills.md) |
+| Plan | 3 | |
+| Build | 5 | |
+| Verify | 6 (web optional) | |
+| Review | 4 | |
+| Ship & Operate | 4 | |
+| Explain (read-only, optional) | 3 | |
 
-### Verify — Yakin bener? (6, web opsional)
-| Skill | Deskripsi |
-|-------|-----------|
-| `debugging-and-error-recovery` | Reproduksi → lokalisasi → fix → guard |
-| `browser-testing-with-devtools` | Testing via browser automation |
-| `security-and-hardening` | Hardening & vulnerability check |
-| `performance-optimization` | Optimasi performa |
-| `doubt-driven-development` | Stakes tinggi / code asing — verifikasi ekstra |
-| `webapp-testing` | **Opsional — hanya web** — Playwright + `with_server.py`, screenshot & console log (Anthropic) |
+Full table + sources → [docs/skills.md](docs/skills.md) · Shared checklists live in `references/` (7).
 
-### Review — Layak merge? (4)
-| Skill | Deskripsi |
-|-------|-----------|
-| `code-review-and-quality` | Review 5 axis: correctness, design, readability, test, security |
-| `code-simplification` | Clarity over cleverness |
-| `documentation-and-adrs` | ADR & dokumentasi keputusan arsitektur |
-| `deprecation-and-migration` | Deprecation & migrasi yang aman |
+## Personas (2 — optional)
 
-### Ship & Operate (4)
-| Skill | Deskripsi |
-|-------|-----------|
-| `git-workflow-and-versioning` | Branching, conventional commit, PR |
-| `ci-cd-and-automation` | CI/CD pipeline |
-| `shipping-and-launch` | Checklist rilis & go-live |
-| `observability-and-instrumentation` | Log, metrik, alert, monitoring |
+| Persona | Role | Used in |
+|---------|------|---------|
+| `code-reviewer` | Senior Staff Engineer — 5-axis review | `/review` · `/ship` fan-out |
+| `security-auditor` | Security Engineer — OWASP & threat modeling | `/ship` fan-out (conditional) |
 
-### Explain — Jelaskan yang sudah ada (3, opsional — read-only)
-| Skill | Deskripsi | Sumber |
-|-------|-----------|--------|
-| `improve-codebase-architecture` | Scan arsitektur, deep-module opportunities, HTML report + Mermaid (915K) | `mattpocock/skills` |
-| `database-schema-designer` | Desain & jelaskan DB/data-model schema, ERD, checklist | `softaworks/agent-toolkit` |
-| `write-feature-docs` | Dokumentasi fitur dari codebase yang sudah ada | `warpdotdev/common-skills` |
+`Skill = HOW` · `Persona = WHO` · `Command = WHEN` → [docs/personas.md](docs/personas.md)
 
-## Agent Personas (2, opsional — WHO)
+## Commands (8 = 6 CORE + 2 OPTIONAL)
 
-| Persona | Role | Dipakai di | Sumber |
-|---------|------|------------|--------|
-| `code-reviewer` | Senior Staff Engineer — 5-axis review (correctness/readability/architecture/security/performance) | `/review` (single) & `/ship` (fan-out) | `addyosmani/agent-skills` |
-| `security-auditor` | Security Engineer — OWASP + threat model, exploitable issues | `/ship` fan-out (kondisional bila spec sentuh auth/input) | `addyosmani/agent-skills` |
+| Command | Phase | Output |
+|---------|-------|--------|
+| `/spec` | SPEC | `docs/specs/active/<id>/prd.md` |
+| `/plan` | PLAN | `implementation-plan.md` + `todo.md` |
+| `/build` | BUILD | code + tests (1 commit per task) |
+| `/verify` | VERIFY | green gates |
+| `/review` | REVIEW | `code-reviewer` report + ADR |
+| `/ship` | SHIP | tag · CHANGELOG · `docs/specs/archive/` |
+| `/constraints` | *optional* | `docs/CONSTRAINTS.md` |
+| `/explain-code` | *optional, read-only* | architecture / schema / features |
 
-> Persona = WHO (perspektif), Skill = HOW (langkah), Command = WHEN (entry point). Personas tidak panggil persona lain — komposisi di command.
+Full contract per command → [docs/commands.md](docs/commands.md)
 
-## Struktur
+## Structure
 
-Semua output ada di `docs/` — rapi, per-spec satu folder:
+All outputs live under `docs/` — per-spec folders `docs/specs/active/YYYY-MM-DD-<slug>/` → `docs/specs/archive/` on `/ship` when todos hit 100%. Details → [docs/structure.md](docs/structure.md)
 
-```
-project-root/
-├── docs/
-│   ├── CONSTRAINTS.md                 ← /constraints (kanonikal, sekali)
-│   ├── specs/
-│   │   ├── active/                    ← sedang dikerjakan
-│   │   │   ├── 2026-09-13-user-auth/  ← /spec baru = folder baru (YYYY-MM-DD-<slug>)
-│   │   │   │   ├── prd.md             ← /spec — WHAT & WHY (8 section)
-│   │   │   │   ├── implementation-plan.md ← /plan Phase 1 — HOW (5-layer Mermaid + ERD + API)
-│   │   │   │   └── todo.md            ← /plan Phase 2 — ORDER (vertical slices, checklist)
-│   │   │   ├── 2026-09-14-billing/    ← spec kedua — paralel bila tidak bersinggungan
-│   │   │   │   ├── prd.md
-│   │   │   │   ├── implementation-plan.md
-│   │   │   │   └── todo.md
-│   │   │   └── 2026-09-15-notifications/ ← bersinggungan? /spec tanya Gabung/Pisah/Tunda dulu
-│   │   │       ├── prd.md
-│   │   │       ├── implementation-plan.md
-│   │   │       └── todo.md
-│   │   └── archive/                   ← selesai — dipindah otomatis oleh /ship bila todo 100%
-│   │       ├── 2026-09-10-legacy-auth/
-│   │       │   ├── prd.md
-│   │       │   ├── implementation-plan.md
-│   │       │   └── todo.md            ← semua [x] — archive gate lolos
-│   │       └── 2026-09-11-checkout/
-│   ├── adr/                           ← ADR dari /review via code-reviewer persona
-│   │   └── ADR-0001-*.md
-│   └── explain/                       ← /explain-code — bila user minta save (read-only)
-│       ├── architecture-2026-09-13.md
-│       ├── schema-2026-09-13.md
-│       └── features-2026-09-13.md
-├── src/, tests/, package.json, etc.   ← kode — ditulis oleh /build (1 task = 1 commit)
-└── $TMPDIR/architecture-review-*.html  ← /explain-code (a) — HTML report di temp OS, tidak di repo
-```
+## Docs
 
-**Aturan yang Kak minta (sudah di-enforce di commands/*.toml):**
+| Page | What |
+|------|------|
+| [docs/lifecycle.md](docs/lifecycle.md) | End-to-end flow & gates |
+| [docs/skills.md](docs/skills.md) | All 30 skills |
+| [docs/personas.md](docs/personas.md) | 2 personas (WHO) |
+| [docs/commands.md](docs/commands.md) | 8 commands (WHEN) |
+| [docs/structure.md](docs/structure.md) | File layout & collision/archive rules |
+| [docs/constraints.md](docs/constraints.md) | Quality bar (`docs/CONSTRAINTS.md`) |
+| [docs/explaining.md](docs/explaining.md) | `/explain-code` lenses |
+| [docs/installation.md](docs/installation.md) | Install & update |
 
-| Aturan | Di mana | Cara kerja |
-|--------|---------|------------|
-| Semua di `docs/` | `docs/specs/active/<spec-id>/` | Tidak ada file docs di root repo atau `tasks/` — semua terkonsolidasi |
-| Spec baru = folder baru | `docs/specs/active/YYYY-MM-DD-<slug>/` | Tiap `/spec` buat `<spec-id>` baru; pengerjaan `/plan` + `/build` baca dari folder spec tersebut |
-| Bersinggungan → tanya | `/spec` step 7 & `/plan` collision guard | Scan `prd.md`/`implementation-plan.md`/`todo.md` aktif (file/module/capability/keyword overlap) + cek unchecked todos → STOP → tanya **(a) Gabung** (merge PRD ke spec aktif), **(b) Pisah** (folder baru paralel), **(c) Tunda** |
-| Selesai → archive | `/ship` step 7 — archive gate | `git mv docs/specs/active/<id> docs/specs/archive/<id>` **hanya bila semua `- [ ]` sudah jadi `- [x]` di `todo.md`**; bila masih ada unchecked → tetap di `active`, tidak di-archive. Tidak pernah archive dari `/build`/`/verify` |
+## License
 
-Dipakai oleh `my-skills` sendiri (`~/projects/my-skills`) juga sama:
-```
-my-skills/
-├── agents/*.md                    # 2 personas: code-reviewer, security-auditor (opsional, WHO)
-├── commands/*.toml                  # 8 slash commands: 6 CORE (SPEC→SHIP) + 2 OPSIONAL (web verify opsional di /verify)
-├── skills/<nama>/SKILL.md          # 30 skills, tiap skill = 1 folder + 1 SKILL.md (wajib)
-│   └── scripts/, references/       # opsional per-skill (brainstorming punya)
-├── references/                      # 7 shared checklist (dipakai banyak skill)
-│   ├── accessibility-checklist.md
-│   ├── definition-of-done.md
-│   ├── observability-checklist.md
-│   ├── orchestration-patterns.md
-│   ├── performance-checklist.md
-│   ├── security-checklist.md
-│   └── testing-patterns.md
-├── docs/
-│   ├── CONSTRAINTS.md               # kanonikal (ganti root CONSTRAINTS.md)
-│   ├── specs/active/                # spec aktif
-│   └── specs/archive/               # spec selesai (todo 100%)
-├── AGENTS.md
-├── plugin.json
-└── README.md
-```
-
-## Cara buat skill baru
-
-```bash
-# duplikasi skill terdekat sebagai template
-cp -r skills/spec-driven-development skills/nama-baru
-# edit skills/nama-baru/SKILL.md -> ganti name & description (harus == nama folder)
-git add skills/nama-baru && git commit -m "feat: add nama-baru" && git push
-# langsung: npx skills add dimsdeall/my-skills --skill nama-baru --list
-```
-
-## Commands — 6 CORE + 2 OPSIONAL (8)
-
-**CORE — lifecycle SPEC → SHIP** (dipakai tiap fitur):
-
-| Command | Fase | Skill(s) |
-|---------|------|----------|
-| `/spec` | SPEC — PRD (WHAT & WHY) | `brainstorming` → `idea-refine` → `interview-me` → `spec-driven-development` → `prd.md` |
-| `/plan` | PLAN — impl plan (HOW) + tasks (ORDER) | `planning-and-task-breakdown` + `context-engineering` + `api/database` (kondisional) → `implementation-plan.md` + `tasks/plan.md` |
-| `/build` (`/build auto`) | BUILD | `incremental-implementation` + `test-driven-development` |
-| `/verify` | VERIFY | `debugging-and-error-recovery` + `security`/`perf`/`doubt`/`webapp-testing` (web opsional) |
-| `/review` | REVIEW | `code-reviewer` persona (5-axis) → `code-review-and-quality` + `code-simplification` + `documentation-and-adrs` |
-| `/ship` | SHIP (orchestrator) | fan-out `code-reviewer` + `security-auditor` (kondisional) → `shipping-and-launch` + `ci-cd-and-automation` + `observability` + `git-workflow` → GO/NO-GO |
-
-**OPSIONAL — tidak termasuk lifecycle development, tapi tetap ada sebagai command:**
-
-| Command | Kapan | Skill(s) |
-|---------|-------|----------|
-| `/constraints` | SETUP (sekali di awal / saat bar belum ada) | `constraint-driven-development` — interview 4Q → `CONSTRAINTS.md` + install tools + ratchets + guards |
-| `/explain-code` | Kapan pun (read-only, tidak ubah kode) | `improve-codebase-architecture` (arsitektur) + `database-schema-designer` (skema) + `write-feature-docs` (fitur) — pilih a/b/c, bisa kombinasi |
-
-File ada di `commands/*.toml` — format `skills` CLI (agenticskills.io) yang dipakai `npx skills add` untuk register command.
-
-## Instal lokal (OpenCode / Hermes)
-
-```bash
-mkdir -p .opencode/skills
-cp -r ~/projects/my-skills/skills/<nama> .opencode/skills/
-```
-
-## Lisensi
-
-MIT — bebas pakai & modifikasi.
+MIT — free to use and modify.
