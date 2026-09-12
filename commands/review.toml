@@ -1,19 +1,19 @@
-description = "REVIEW — review 5-axis + simplifikasi + ADR sebelum merge — untuk spec aktif di docs/specs/active/<spec-id>"
+description = "REVIEW — via code-reviewer persona (5-axis) + simplifikasi + ADR — untuk spec aktif di docs/specs/active/<spec-id>"
 
 prompt = """
-Invoke code-review-and-quality (and related skills as needed). Scoped to the active spec in docs/specs/.
+Use the code-reviewer persona (agents/code-reviewer.md — Senior Staff Engineer, five-axis review) as the WHO, which internally invokes the HOW skills. Scoped to the active spec in docs/specs/.
 
 Active spec resolution: same as /build — if docs/specs/active/ has one folder with unchecked todos, use it; if multiple, ask which <spec-id> to review. Read docs/specs/active/<spec-id>/prd.md + implementation-plan.md + todo.md for context.
 
-1. Review staged changes or recent commits since this spec's first commit (or since docs/specs/active/<spec-id>/ was created) across 5 axes:
+1. As code-reviewer, review staged changes or recent commits since this spec's first commit (or since docs/specs/active/<spec-id>/ was created). The persona's framework evaluates 5 axes:
    - Correctness — matches prd.md + implementation-plan.md? edge cases? tests adequate?
    - Readability — clear names? straightforward logic?
    - Architecture — follows existing patterns + implementation-plan.md's System Architecture? clean boundaries?
-   - Security — delegate to security-and-hardening for deep check
+   - Security — delegate to security-and-hardening (and optionally security-auditor persona for deep audit) — check docs/CONSTRAINTS.md if present
    - Performance — delegate to performance-optimization for deep check
-   Categorize findings as Critical / Important / Suggestion with file:line + fix recommendations.
+   Categorize findings as Critical / Important / Suggestion with file:line + fix recommendations. Output is the persona's structured review report.
 2. If recently changed code for this spec is complex (deep nesting, long functions, duplication, dead code), invoke code-simplification incrementally — one simplification at a time, tests green after each.
 3. If change introduces architectural decision, public API change, or context future engineers need, invoke documentation-and-adrs to record an ADR in docs/adr/ADR-*.md.
 4. If change removes/replaces old systems/APIs/features or migrates data/schema, invoke deprecation-and-migration.
-5. Address Critical findings before /ship. Present structured review scoped to <spec-id> and wait for fixes or explicit risk acceptance. Do NOT archive yet — archive is /ship after todos 100% checked.
+5. Address Critical findings before /ship. Present the persona's structured review report for this <spec-id> and wait for fixes or explicit risk acceptance. Do NOT archive yet — archive is /ship after todos 100% checked. Personas do not invoke other personas — composition is via this command or the user.
 """

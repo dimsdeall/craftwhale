@@ -98,6 +98,15 @@ IDEA ──→ SPEC ──→ PLAN ──→ BUILD ──→ VERIFY ──→ RE
 | `database-schema-designer` | Desain & jelaskan DB/data-model schema, ERD, checklist | `softaworks/agent-toolkit` |
 | `write-feature-docs` | Dokumentasi fitur dari codebase yang sudah ada | `warpdotdev/common-skills` |
 
+## Agent Personas (2, opsional — WHO)
+
+| Persona | Role | Dipakai di | Sumber |
+|---------|------|------------|--------|
+| `code-reviewer` | Senior Staff Engineer — 5-axis review (correctness/readability/architecture/security/performance) | `/review` (single) & `/ship` (fan-out) | `addyosmani/agent-skills` |
+| `security-auditor` | Security Engineer — OWASP + threat model, exploitable issues | `/ship` fan-out (kondisional bila spec sentuh auth/input) | `addyosmani/agent-skills` |
+
+> Persona = WHO (perspektif), Skill = HOW (langkah), Command = WHEN (entry point). Personas tidak panggil persona lain — komposisi di command.
+
 ## Struktur
 
 Semua output ada di `docs/` — rapi, per-spec satu folder:
@@ -126,7 +135,7 @@ project-root/
 │   │       │   ├── implementation-plan.md
 │   │       │   └── todo.md            ← semua [x] — archive gate lolos
 │   │       └── 2026-09-11-checkout/
-│   ├── adr/                           ← ADR dari /review (bila ada keputusan arsitektur)
+│   ├── adr/                           ← ADR dari /review via code-reviewer persona
 │   │   └── ADR-0001-*.md
 │   └── explain/                       ← /explain-code — bila user minta save (read-only)
 │       ├── architecture-2026-09-13.md
@@ -148,6 +157,7 @@ project-root/
 Dipakai oleh `my-skills` sendiri (`~/projects/my-skills`) juga sama:
 ```
 my-skills/
+├── agents/*.md                    # 2 personas: code-reviewer, security-auditor (opsional, WHO)
 ├── commands/*.toml                  # 8 slash commands: 6 CORE (SPEC→SHIP) + 2 OPSIONAL (web verify opsional di /verify)
 ├── skills/<nama>/SKILL.md          # 30 skills, tiap skill = 1 folder + 1 SKILL.md (wajib)
 │   └── scripts/, references/       # opsional per-skill (brainstorming punya)
@@ -188,8 +198,8 @@ git add skills/nama-baru && git commit -m "feat: add nama-baru" && git push
 | `/plan` | PLAN — impl plan (HOW) + tasks (ORDER) | `planning-and-task-breakdown` + `context-engineering` + `api/database` (kondisional) → `implementation-plan.md` + `tasks/plan.md` |
 | `/build` (`/build auto`) | BUILD | `incremental-implementation` + `test-driven-development` |
 | `/verify` | VERIFY | `debugging-and-error-recovery` + `security`/`perf`/`doubt`/`webapp-testing` (web opsional) |
-| `/review` | REVIEW | `code-review-and-quality` + `code-simplification` + `documentation-and-adrs` |
-| `/ship` | SHIP | `shipping-and-launch` + `ci-cd-and-automation` + `observability` + `git-workflow` |
+| `/review` | REVIEW | `code-reviewer` persona (5-axis) → `code-review-and-quality` + `code-simplification` + `documentation-and-adrs` |
+| `/ship` | SHIP (orchestrator) | fan-out `code-reviewer` + `security-auditor` (kondisional) → `shipping-and-launch` + `ci-cd-and-automation` + `observability` + `git-workflow` → GO/NO-GO |
 
 **OPSIONAL — tidak termasuk lifecycle development, tapi tetap ada sebagai command:**
 

@@ -1,24 +1,41 @@
-description = "SHIP — checklist rilis, CI/CD, observability, go/no-go + archive spec ke docs/specs/archive/ bila todo 100%"
+description = "SHIP — orchestrator: parallel fan-out code-reviewer + security-auditor, merge → go/no-go + archive spec ke docs/specs/archive/ bila todo 100%"
 
 prompt = """
-Invoke shipping-and-launch as orchestrator, with ci-cd-and-automation, observability-and-instrumentation, and git-workflow-and-versioning as needed. Scoped to docs/specs/.
+Orchestrator command — fans out to specialist personas in parallel, then merges. Scoped to docs/specs/.
 
-Active spec resolution: if docs/specs/active/ has one folder, use it as <spec-id>; if multiple, ask which <spec-id> to ship (single-choice). Read docs/specs/active/<spec-id>/prd.md + implementation-plan.md + todo.md for context. The spec being shipped is <spec-id>.
+Personas (WHO — 2, opsional & parallel when needed):
+- code-reviewer (agents/code-reviewer.md) — Senior Staff Engineer, 5-axis review
+- security-auditor (agents/security-auditor.md) — Security Engineer, OWASP + threat model (invoke only if the spec touches auth/input/sessions/external integrations/deps — otherwise skip)
 
-1. Verify VERIFY and REVIEW are green for this <spec-id> — if not, stop and complete them first. Check that tests + build pass and no Critical review findings remain unaddressed.
-2. Run shipping-and-launch pre-launch checklist for this spec: env vars, migrations, monitoring/alerting, feature flags, docs/README/CHANGELOG, rollback plan. Produce GO / NO-GO with blockers, fixes, acknowledged risks, and a rollback procedure (trigger + exact steps + RTO).
-3. Ensure CI/CD is ready via ci-cd-and-automation (GitHub Actions / PM2 / build pipeline) — no broken workflows, build passes on CI.
-4. Ensure observability via observability-and-instrumentation (logging, metrics, tracing, alerting) so production behavior is diagnosable after launch.
-5. Follow git-workflow-and-versioning for release: clean atomic commits, conventional messages, tagging / version bump, and PR hygiene.
-6. If any Critical blocker exists, default verdict is NO-GO unless user explicitly accepts risk. Never ship without an explicit rollback plan.
+Skills (HOW — invoked inside each persona): shipping-and-launch (orchestrator checklist), code-review-and-quality, security-and-hardening, performance-optimization, plus ci-cd-and-automation, observability-and-instrumentation, and git-workflow-and-versioning for release.
 
-7. ARCHIVE GATE (wajib — ini yang memindahkan spec yang sudah selesai):
+Active spec resolution: if docs/specs/active/ has one folder, use it as <spec-id>; if multiple, ask which <spec-id> to ship (single-choice). Read docs/specs/active/<spec-id>/prd.md + implementation-plan.md + todo.md — the spec being shipped is <spec-id>.
+
+1. Verify VERIFY and REVIEW are green for this <spec-id> — if not, stop and complete them first. Check that tests + build pass and no Critical review findings remain unaddressed for this spec.
+
+2. Fan-out (parallel, no dependencies — this is the only endorsed orchestration pattern):
+   - Spawn code-reviewer on the diff since this spec's first commit (or since docs/specs/active/<spec-id>/ was created) → review report (5 axes, Critical/Important/Suggestion with file:line)
+   - If the spec touches auth/input/sessions/external integrations/deps: also spawn security-auditor on the same diff → audit report (OWASP + threat model, exploitable issues)
+   - Each runs in a fresh context window on the same diff but produces a different perspective; main session stays uncluttered.
+   - If the spec has no security surface, run only code-reviewer — do not spawn security-auditor.
+   - Personas do NOT invoke other personas; skills inside each persona are the HOW.
+
+3. Merge phase (main agent): synthesize reports into one decision:
+   - Run shipping-and-launch pre-launch checklist for this spec: env vars, migrations, monitoring/alerting, feature flags, docs/README/CHANGELOG, rollback plan.
+   - Produce GO / NO-GO with blockers, fixes, acknowledged risks, and a rollback procedure (trigger + exact steps + RTO). Cite persona findings with file:line.
+
+4. Ensure CI/CD via ci-cd-and-automation (GitHub Actions / PM2 / build pipeline) — no broken workflows, build passes on CI.
+5. Ensure observability via observability-and-instrumentation (logging, metrics, tracing, alerting) so production behavior is diagnosable after launch.
+6. Follow git-workflow-and-versioning for release: clean atomic commits, conventional messages, tagging / version bump, and PR hygiene.
+7. If any Critical blocker exists, default verdict is NO-GO unless user explicitly accepts risk. Never ship without an explicit rollback plan.
+
+8. ARCHIVE GATE (wajib — ini yang memindahkan spec yang sudah selesai):
    After a successful GO (or after user explicitly accepts remaining risks), inspect docs/specs/active/<spec-id>/todo.md:
    - If EVERY checkbox is [x] (no "- [ ]" remains) → move the entire folder: git mv docs/specs/active/<spec-id> docs/specs/archive/<spec-id>
-     If docs/specs/archive/<spec-id> already exists, use docs/specs/archive/<spec-id>-v2 (or next suffix). Also move its implementation-plan.md + prd.md together — they travel as a unit.
-     Commit the move: "docs(specs): archive <spec-id> — todos 100% (via /ship)"
-   - If ANY checkbox is still [ ] → do NOT archive. Leave docs/specs/active/<spec-id>/ in place and tell user: "masih ada <N> todo unchecked — selesaikan dulu atau centang manual, baru /ship akan archive."
-   - Never archive a spec that still has unchecked todos, even if user says GO — GO without archive is allowed (code ships, docs stay active).
+     If docs/specs/archive/<spec-id> already exists, use docs/specs/archive/<spec-id>-v2 (or next suffix). Also move its prd.md + implementation-plan.md together — they travel as a unit.
+     Commit: "docs(specs): archive <spec-id> — todos 100% (via /ship)"
+   - If ANY checkbox is still [ ] → do NOT archive. Tell user: "masih ada <N> todo unchecked — selesaikan dulu atau centang manual, baru /ship akan archive."
+   - Never archive a spec with unchecked todos, even if user says GO — GO without archive is allowed (code ships, docs stay active).
 
 Rules: all specs live under docs/specs/active/ while in progress and only move to docs/specs/archive/ via this gate; never manually move; never archive from /build or /verify.
 """

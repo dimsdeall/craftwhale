@@ -1,6 +1,6 @@
 {
   "name": "my-skills",
-  "version": "0.5.1",
-  "description": "Agent skills milik Dimas Putra (dimsdeall) — 30 skills (Verify 6: webapp-testing opsional) + 8 commands, semua di docs/ (specs/active→archive gate).",
+  "version": "0.6.0",
+  "description": "Agent skills milik Dimas Putra (dimsdeall) — 30 skills + 2 personas (code-reviewer, security-auditor, opsional WHO) + 8 commands, semua di docs/ (specs/active→archive gate).",
   "owner": "dimsdeall"
 }
