@@ -39,6 +39,8 @@ project-root/
 
 ## This Repo's Own Layout (my-skills)
 
+> `docs/` here holds **only** the 8 technical docs + index. Consumer-only folders (`specs/`, `adr/`, `explain/`, `CONSTRAINTS.md`) live in **consumer projects**, not in this repo.
+
 ```
 my-skills/
 ├── agents/*.md                    # 2 personas: code-reviewer, security-auditor (WHO)
@@ -53,22 +55,23 @@ my-skills/
 │   ├── performance-checklist.md
 │   ├── security-checklist.md
 │   └── testing-patterns.md
-├── docs/                          # you are here
+├── docs/                          # you are here — 8 docs + index only
+│   ├── README.md                  # index — links to all 8
 │   ├── lifecycle.md               # Idea → Ship flow
 │   ├── skills.md                  # all 30 skills
 │   ├── personas.md                # 2 personas
 │   ├── commands.md                # 6+2 commands
 │   ├── structure.md               # ← this file
-│   ├── constraints.md             # quality bar — CONSTRAINTS.md
+│   ├── constraints.md             # quality bar
 │   ├── explaining.md              # /explain-code lenses
-│   ├── installation.md            # how to install & update
-│   ├── specs/active/              # active specs
-│   └── specs/archive/             # shipped specs (todo 100%)
+│   └── installation.md            # how to install & update
 ├── AGENTS.md                      # machine-readable inventory & intent map
 ├── plugin.json                    # registry metadata (name/version/owner)
-└── README.md                      # English (default) — light entry point
+├── README.md                      # English (default) — light entry point
 └── README.id.md                   # Indonesian mirror
 ```
+
+> `docs/specs/`, `docs/adr/`, `docs/explain/`, `docs/CONSTRAINTS.md` are **not** in this repo. They are created by `/spec` → `/ship` inside the project that *uses* my-skills (see Consumer layout above).
 
 ## Adding a New Skill
 

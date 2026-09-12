@@ -2,15 +2,15 @@
 
 > **English** | [Indonesia](README.id.md)
 
-Production-grade agent skills — a full **Idea → Ship** lifecycle. 30 skills + 2 personas + 8 slash commands, curated from open sources and wired to work together under one contract.
+Production-grade agent skills — a full **Idea → Ship** lifecycle. **30 skills + 2 personas + 8 slash commands**, curated from open sources and wired to work together under one contract.
+
+Works with 70+ agents (Claude Code, Cursor, Codex, Copilot, Cline, OpenCode, Hermes, etc.) via the open `skills` CLI. Repo is **private** — `gh auth login` as `dimsdeall` or be added as collaborator.
 
 ## Install
 
-This repo is **private** — run `gh auth login` as `dimsdeall` or be added as collaborator. Works with 70+ agents (Claude Code, Cursor, Codex, Copilot, Cline, OpenCode, Hermes, etc.) via the open `skills` CLI.
-
 ```bash
 # browse first
-npx skills add dimsdeall/my-skills --list
+npx skills add dimsdeall/my-skills --list          # expect: Found 30 skills
 
 # install everything (30 skills + 8 commands + 2 personas)
 npx skills add dimsdeall/my-skills
@@ -19,46 +19,36 @@ npx skills add dimsdeall/my-skills
 npx skills add dimsdeall/my-skills --skill brainstorming
 ```
 
-Updating & manual install → [docs/installation.md](docs/installation.md)
+Update & manual copy → [docs/installation.md](docs/installation.md)
 
-## Lifecycle
+## How It Works — Lifecycle
+
+Every feature follows the same contract. One spec = one folder, and nothing ships without passing its gates.
 
 ```
-/constraints (optional, once)
+/constraints (optional, once — quality bar)
     │
 IDEA ──→ SPEC ──→ PLAN ──→ BUILD ──→ VERIFY ──→ REVIEW ──→ SHIP ──→ OPERATE
+ brainstorm  prd    impl-plan  code     tests    report    tag
+ interview  WHAT/  + todos    RED→     + guard   5-axis   CHANGELOG
+ idea-refine WHY    HOW+ORDER GREEN    green    → ADR    archive
 ```
 
-- `/constraints` once → `/spec` → `prd.md` (WHAT & WHY) → `/plan` → `implementation-plan.md` (HOW) + `todo.md` (ORDER) → `/build` → code → `/verify` → green → `/review` → report → `/ship` → GO/NO-GO + archive.
+| Step | You run | What it does | Gate |
+|------|---------|--------------|------|
+| **Constraints** | `/constraints` | Interviews (4Q) → writes `docs/CONSTRAINTS.md` (Floor + Enforced with numbers + Exceptions), wires `check:fast/task/full` | Once at repo start |
+| **Spec** | `/spec` | `brainstorming` hard-gate (Spike/Bounded/Architectural) → Socratic refine → `prd.md` (8 sections: Goal, Personas, Stories, Requirements, AC…) | **STOP** — waits for your explicit approval |
+| **Plan** | `/plan` | Reads `prd.md` → `implementation-plan.md` (Mermaid 5-layer + ERD + API + frontend) → `todo.md` (vertical slices) | Approval on plan |
+| **Build** | `/build` | TDD loop RED→GREEN→regression, 1 task = 1 conventional commit, marks `[x]` in `todo.md` | Tests + build green |
+| **Verify** | `/verify` | Full suite + debug + conditional security/perf/web (web is **optional** — skipped for CLI/API-only) | Must be green before review |
+| **Review** | `/review` | `code-reviewer` persona — 5-axis report (Critical/Important/Suggestion + `file:line`) | Fix Critical before ship |
+| **Ship** | `/ship` | Fan-out `code-reviewer` + `security-auditor` → GO/NO-GO + rollback plan → `docs/specs/archive/` when todos 100% | Archive only on 100% ✔ |
 
-Details → [docs/lifecycle.md](docs/lifecycle.md)
-
-## Skills (30)
-
-Curated from `addyosmani/agent-skills` (25), `obra/superpowers — brainstorming` (1), `mattpocock/skills` (1), `softaworks/agent-toolkit` (1), `warpdotdev/common-skills` (1), and `anthropics/skills` (1).
-
-| Group | Count | Docs |
-|-------|-------|------|
-| Define | 5 | [docs/skills.md#Define](docs/skills.md) |
-| Plan | 3 | |
-| Build | 5 | |
-| Verify | 6 (web optional) | |
-| Review | 4 | |
-| Ship & Operate | 4 | |
-| Explain (read-only, optional) | 3 | |
-
-Full table + sources → [docs/skills.md](docs/skills.md) · Shared checklists live in `references/` (7).
-
-## Personas (2 — optional)
-
-| Persona | Role | Used in |
-|---------|------|---------|
-| `code-reviewer` | Senior Staff Engineer — 5-axis review | `/review` · `/ship` fan-out |
-| `security-auditor` | Security Engineer — OWASP & threat modeling | `/ship` fan-out (conditional) |
-
-`Skill = HOW` · `Persona = WHO` · `Command = WHEN` → [docs/personas.md](docs/personas.md)
+Full flow & gates → [docs/lifecycle.md](docs/lifecycle.md) · Quality bar → [docs/constraints.md](docs/constraints.md)
 
 ## Commands (8 = 6 CORE + 2 OPTIONAL)
+
+Slash commands that drive the lifecycle — each one is the **WHEN**.
 
 | Command | Phase | Output |
 |---------|-------|--------|
@@ -66,29 +56,86 @@ Full table + sources → [docs/skills.md](docs/skills.md) · Shared checklists l
 | `/plan` | PLAN | `implementation-plan.md` + `todo.md` |
 | `/build` | BUILD | code + tests (1 commit per task) |
 | `/verify` | VERIFY | green gates |
-| `/review` | REVIEW | `code-reviewer` report + ADR |
-| `/ship` | SHIP | tag · CHANGELOG · `docs/specs/archive/` |
+| `/review` | REVIEW | `code-reviewer` report + ADR in `docs/adr/` |
+| `/ship` | SHIP | tag · CHANGELOG · `docs/specs/archive/<id>/` |
 | `/constraints` | *optional* | `docs/CONSTRAINTS.md` |
 | `/explain-code` | *optional, read-only* | architecture / schema / features |
 
-Full contract per command → [docs/commands.md](docs/commands.md)
+Commands are `WHEN` — they compose personas (WHO) and skills (HOW). Full contract per command → [docs/commands.md](docs/commands.md)
 
-## Structure
+## Personas (2 — optional, WHO)
 
-All outputs live under `docs/` — per-spec folders `docs/specs/active/YYYY-MM-DD-<slug>/` → `docs/specs/archive/` on `/ship` when todos hit 100%. Details → [docs/structure.md](docs/structure.md)
+Personas are specialist perspectives — `Skill = HOW` · `Persona = WHO` · `Command = WHEN`.
+
+| Persona | Role | Used in |
+|---------|------|---------|
+| `code-reviewer` | Senior Staff Engineer — 5-axis review (correctness/readability/architecture/security/perf) | `/review` · `/ship` fan-out |
+| `security-auditor` | Security Engineer — OWASP & threat modeling, exploitable issues only | `/ship` fan-out (conditional — only when spec touches auth/input) |
+
+Personas don't call other personas — composition lives in the command. Detail → [docs/personas.md](docs/personas.md)
+
+## Skills (30)
+
+Grouped by lifecycle. All live in `skills/<name>/SKILL.md`.
+
+| Group | Count | Highlights |
+|-------|-------|------------|
+| **Define** | 5 | `brainstorming` (hard-gate), `interview-me`, `idea-refine`, `spec-driven-development`, `constraint-driven-development` |
+| **Plan** | 3 | `planning-and-task-breakdown`, `context-engineering`, `using-agent-skills` |
+| **Build** | 5 | `incremental-implementation`, `test-driven-development`, `api-and-interface-design`, `frontend-ui-engineering`, `source-driven-development` |
+| **Verify** | 6 | `debugging-and-error-recovery`, `browser-testing-with-devtools`, `webapp-testing` *(web optional)*, `security-and-hardening`, `performance-optimization`, `doubt-driven-development` |
+| **Review** | 4 | `code-review-and-quality`, `code-simplification`, `documentation-and-adrs`, `deprecation-and-migration` |
+| **Ship & Operate** | 4 | `git-workflow-and-versioning`, `ci-cd-and-automation`, `shipping-and-launch`, `observability-and-instrumentation` |
+| **Explain** *(read-only, optional)* | 3 | `improve-codebase-architecture`, `database-schema-designer`, `write-feature-docs` |
+
+Full table + sources & shared checklists (`references/` ×7) → [docs/skills.md](docs/skills.md)
+
+## Development Structure
+
+**This repo (`my-skills`)** — the skill library itself:
+
+```
+my-skills/
+├── agents/*.md          # 2 personas (WHO)
+├── commands/*.toml      # 8 slash commands (WHEN)
+├── skills/<name>/       # 30 skills (HOW)
+├── references/          # 7 shared checklists
+├── docs/                # technical docs (you are here)
+└── README.md / README.id.md
+```
+
+**Consumer projects** (where you run `/spec` → `/ship`) — every artifact lives under `docs/`:
+
+```
+project-root/
+└── docs/
+    ├── CONSTRAINTS.md                 # from /constraints (once)
+    ├── specs/
+    │   ├── active/YYYY-MM-DD-<slug>/  # /spec creates one folder per spec
+    │   │   ├── prd.md                 # WHAT & WHY
+    │   │   ├── implementation-plan.md # HOW
+    │   │   └── todo.md                # ORDER
+    │   └── archive/<slug>/            # /ship moves here only when todos 100%
+    ├── adr/                           # from /review
+    └── explain/                       # from /explain-code (only on request)
+```
+
+Rules: new spec = new folder in `active/`; collision (overlap files/modules) → ask **Merge / Split / Defer**; archive only via `/ship` when every `- [ ]` → `- [x]`. Full layout & rules → [docs/structure.md](docs/structure.md)
 
 ## Docs
 
-| Page | What |
-|------|------|
-| [docs/lifecycle.md](docs/lifecycle.md) | End-to-end flow & gates |
-| [docs/skills.md](docs/skills.md) | All 30 skills |
-| [docs/personas.md](docs/personas.md) | 2 personas (WHO) |
-| [docs/commands.md](docs/commands.md) | 8 commands (WHEN) |
-| [docs/structure.md](docs/structure.md) | File layout & collision/archive rules |
+| Page | What you'll find |
+|------|------------------|
+| [docs/lifecycle.md](docs/lifecycle.md) | End-to-end Idea → Ship flow & gates |
+| [docs/commands.md](docs/commands.md) | 8 slash commands — inputs, outputs, gates |
+| [docs/personas.md](docs/personas.md) | 2 personas — roles & composition |
+| [docs/skills.md](docs/skills.md) | All 30 skills — by group + provenance |
+| [docs/structure.md](docs/structure.md) | File layout for this repo & for consumer projects |
 | [docs/constraints.md](docs/constraints.md) | Quality bar (`docs/CONSTRAINTS.md`) |
-| [docs/explaining.md](docs/explaining.md) | `/explain-code` lenses |
-| [docs/installation.md](docs/installation.md) | Install & update |
+| [docs/explaining.md](docs/explaining.md) | `/explain-code` — 3 read-only lenses |
+| [docs/installation.md](docs/installation.md) | Install, update, local copy |
+
+Browse the index → [docs/README.md](docs/README.md)
 
 ## License
 
