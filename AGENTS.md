@@ -1,6 +1,6 @@
 # AGENTS.md — my-skills (dimsdeall)
 
-Koleksi **26 Agent Skills + 7 Commands** — lifecycle Idea → Ship.
+Koleksi **26 Agent Skills + 6 Commands** — lifecycle Spec → Ship (Spec = Idea+Spec).
 
 ## Inventory (jangan hapus — source of truth)
 
@@ -11,7 +11,7 @@ Koleksi **26 Agent Skills + 7 Commands** — lifecycle Idea → Ship.
 - Review (4): `code-review-and-quality`, `code-simplification`, `documentation-and-adrs`, `deprecation-and-migration`
 - Ship & Operate (4): `git-workflow-and-versioning`, `ci-cd-and-automation`, `shipping-and-launch`, `observability-and-instrumentation`
 - Shared `references/`: 7 checklist (accessibility, definition-of-done, observability, orchestration, performance, security, testing)
-- Commands `commands/*.toml` (7): `/idea` → `brainstorming+idea-refine+interview-me`, `/spec` → `spec-driven`, `/plan` → `planning+context`, `/build` → `incremental+TDD`, `/verify` → `debugging+security/perf/doubt`, `/review` → `code-review+code-simplification+ADRs`, `/ship` → `shipping+CI/CD+observability+git`
+- Commands `commands/*.toml` (6): `/spec` → `brainstorming+idea-refine+interview-me+spec-driven` (IDEA+SPEC), `/plan` → `planning+context`, `/build` → `incremental+TDD`, `/verify` → `debugging+security/perf/doubt`, `/review` → `code-review+code-simplification+ADRs`, `/ship` → `shipping+CI/CD+observability+git`
 
 ## Aturan untuk AI agent yang ngerjain repo ini
 

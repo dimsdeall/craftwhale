@@ -85,7 +85,7 @@ IDEA ──→ SPEC ──→ PLAN ──→ BUILD ──→ VERIFY ──→ RE
 
 ```
 my-skills/
-├── commands/*.toml                  # 7 slash commands IDEA→SHIP
+├── commands/*.toml                  # 6 slash commands SPEC→SHIP (SPEC = IDEA+SPEC)
 ├── skills/<nama>/SKILL.md          # 26 skills, tiap skill = 1 folder + 1 SKILL.md (wajib)
 │   └── scripts/, references/       # opsional per-skill (brainstorming punya)
 ├── references/                      # 7 shared checklist (dipakai banyak skill)
@@ -112,14 +112,13 @@ git add skills/nama-baru && git commit -m "feat: add nama-baru" && git push
 # langsung: npx skills add dimsdeall/my-skills --skill nama-baru --list
 ```
 
-## Commands — IDEA → SHIP (7)
+## Commands — SPEC → SHIP (6)
 
-Slash commands mapping 1:1 ke lifecycle. Tiap command invoke skill(s) relevan:
+Slash commands mapping 1:1 ke lifecycle. `/spec` sekarang gabungan IDEA+SPEC:
 
 | Command | Fase | Skill(s) |
 |---------|------|----------|
-| `/idea` | IDEA | `brainstorming` → `idea-refine` → `interview-me` |
-| `/spec` | SPEC | `spec-driven-development` |
+| `/spec` | SPEC (IDEA+SPEC) | `brainstorming` → `idea-refine` → `interview-me` → `spec-driven-development` |
 | `/plan` | PLAN | `planning-and-task-breakdown` + `context-engineering` |
 | `/build` (`/build auto`) | BUILD | `incremental-implementation` + `test-driven-development` |
 | `/verify` | VERIFY | `debugging-and-error-recovery` + `security`/`perf`/`doubt` bila perlu |
