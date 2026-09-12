@@ -21,13 +21,22 @@ npx skills add dimsdeall/my-skills --skill spec-driven-development
 ## Lifecycle — Idea → Ship
 
 ```
+/constraints (opsional, sekali — quality bar)
+    │
 IDEA ──→ SPEC ──→ PLAN ──→ BUILD ──→ VERIFY ──→ REVIEW ──→ SHIP ──→ OPERATE
   │        │       │        │         │          │        │        │
-  brainstorm  spec  planning  incremental debug  code   shipping observability
-  interview  driven breakdown  + TDD   +recovery review + CI/CD  + monitor
-  idea-refine                   +context                 + deprecation
-                                +source-driven
+  brainstorm  spec   planning incremental debug  code   shipping observability
+  interview  (PRD)  (HOW+    + TDD   +recovery review + CI/CD  + monitor
+  idea-refine WHAT/  ORDER)  +context                 + deprecation
+              WHY   impl-plan +source-driven
+                    + tasks
 ```
+
+**Kontrak per fase (yang Kak setujui):**
+- `/constraints` — sekali di awal (opsional)
+- `/spec`  → `prd.md` (WHAT & WHY) — approval
+- `/plan`  → `implementation-plan.md` (HOW) + `tasks/plan.md` (ORDER) — approval
+- `/build` → code (RED→GREEN per task)
 
 ## Daftar Skill (29)
 
@@ -125,8 +134,8 @@ git add skills/nama-baru && git commit -m "feat: add nama-baru" && git push
 
 | Command | Fase | Skill(s) |
 |---------|------|----------|
-| `/spec` | SPEC (IDEA+SPEC) | `brainstorming` → `idea-refine` → `interview-me` → `spec-driven-development` |
-| `/plan` | PLAN | `planning-and-task-breakdown` + `context-engineering` |
+| `/spec` | SPEC — PRD (WHAT & WHY) | `brainstorming` → `idea-refine` → `interview-me` → `spec-driven-development` → `prd.md` |
+| `/plan` | PLAN — impl plan (HOW) + tasks (ORDER) | `planning-and-task-breakdown` + `context-engineering` + `api/database` (kondisional) → `implementation-plan.md` + `tasks/plan.md` |
 | `/build` (`/build auto`) | BUILD | `incremental-implementation` + `test-driven-development` |
 | `/verify` | VERIFY | `debugging-and-error-recovery` + `security`/`perf`/`doubt` bila perlu |
 | `/review` | REVIEW | `code-review-and-quality` + `code-simplification` + `documentation-and-adrs` |

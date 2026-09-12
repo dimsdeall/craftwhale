@@ -1,19 +1,28 @@
-description = "SPEC — gali & matangin ide (IDEA) + tulis spec/PRD terstruktur sebelum coding"
+description = "SPEC — gali & matangin ide (IDEA) + tulis PRD terstruktur (WHAT/WHY) sebelum plan"
 
 prompt = """
-Invoke the brainstorming skill FIRST — it is the hard-gate for this repo — then spec-driven-development.
+Invoke the brainstorming skill FIRST — it is the hard-gate for this repo — then spec-driven-development to produce a PRD.
 
 Phase 1 — IDEA (gali & matangin):
 1. Classify the request: Spike / Bounded / Architectural — announce the path out loud so the user can override. If Spike: present feasibility question + probe plan in 2-3 sentences, get approval, investigate cheaply, report recommendation (throwaway code stays labeled throwaway) and stop.
 2. For Bounded/Architectural: explore project context (files, docs, recent commits), then interview one question at a time (prefer multiple-choice) to clarify purpose, constraints, success criteria.
 3. Invoke idea-refine to diverge/converge and stress-test assumptions, then interview-me until ~95% confidence about underlying intent.
-4. Present the refined concept/design in chat (scaled to complexity) and STOP — wait for explicit approval. If hidden complexity is discovered, upgrade the path and re-classify. Do NOT proceed to spec writing until the concept is approved.
+4. Present the refined concept/design in chat (scaled to complexity) and STOP — wait for explicit approval. If hidden complexity is discovered, upgrade the path and re-classify. Do NOT proceed to PRD writing until the concept is approved.
 
-Phase 2 — SPEC (tulis spec):
-5. With the approved concept, ask clarifying questions about objective, target users, core features + acceptance criteria, tech stack, and boundaries (always / ask-first / never).
-6. If the request bundles several independently testable capabilities, propose a capability map (module ids, dependency direction, build order) per Phase 0 and get it approved before speccing.
-7. Generate a structured spec covering objective, commands, project structure, code style, testing strategy, and boundaries. Save as SPEC.md (or docs/SPEC.md / spec/) and commit.
-8. Self-review the spec for TBD/TODO placeholders, contradictions, scope creep, and ambiguities — fix inline — then ask the user to review the committed spec before /plan.
+Phase 2 — PRD (tulis PRD — WHAT & WHY):
+5. With the approved concept, ask clarifying questions about goal, target users/personas, and boundaries (always / ask-first / never).
+6. If the request bundles several independently testable capabilities, propose a capability map (module ids, dependency direction, build order) per spec-driven Phase 0 and get it approved before writing the PRD.
+7. Generate a PRD in Markdown as the single source of truth for engineering — WHAT & WHY, not HOW. Structure (adapted from breakdown-feature-prd):
+   1. Feature Name — clear, concise, descriptive
+   2. Epic — link to parent Epic PRD/architecture docs if any (or "—" for standalone)
+   3. Goal — Problem (3-5 sentences, user/business need), Solution (how this feature solves it), Impact (expected outcomes/metrics)
+   4. User Personas — who this is for
+   5. User Stories — "As a <persona>, I want <action> so that <benefit>" — cover primary paths + edge cases
+   6. Requirements — Functional (bulleted, specific, unambiguous) + Non-Functional (performance, security, accessibility, privacy)
+   7. Acceptance Criteria — per user story / major requirement, Given/When/Then or checklist — this validates completeness
+   8. Out of Scope — what is explicitly NOT included to prevent scope creep
+   Save as prd.md (single-feature: prd.md or docs/prd.md; multi-capability Epic: docs/ways-of-work/plan/{epic}/{feature}/prd.md or SPEC-{module}.md per capability map). For Backward compat, SPEC.md is also acceptable if the repo already uses it — but prefer prd.md.
+8. Self-review the PRD for TBD/TODO placeholders, contradictions, scope creep, and ambiguities — fix inline — then ask the user to review the committed PRD before /plan.
 
-Rules: one question per message; never skip the approval gate; YAGNI ruthlessly; propose 2-3 approaches with trade-offs where relevant. Do not invent requirements. Do not proceed to /plan until the spec is approved.
+Rules: one question per message; never skip the approval gate; YAGNI ruthlessly; propose 2-3 approaches with trade-offs where relevant. Do not invent requirements. Do not proceed to /plan until the PRD is approved. /plan will consume this PRD to produce the HOW.
 """
