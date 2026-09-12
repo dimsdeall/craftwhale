@@ -1,8 +1,8 @@
 # my-skills — Dimas Putra (dimsdeall)
 
-Kumpulan **Agent Skills** milik Kak Dimas — workflow Hermes, 9Router, dan template umum. Terinspirasi oleh [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills), tapi ini versi milik sendiri.
+Kumpulan **Agent Skills** milik Kak Dimas — lifecycle lengkap dari idea → ship, plus workflow khusus Hermes & 9Router. Dikurasi dari [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) (25 skills) + [obra/superpowers — brainstorming](https://agenticskills.io/skills/brainstorming) + 3 skill custom milik sendiri. Total **29 skills**.
 
-Pasang via CLI `skills` (70+ agent: Claude Code, Codex, Cursor, OpenCode, dll):
+Pasang via CLI `skills` (70+ agent: Claude Code, Codex, Cursor, OpenCode, Hermes, dll):
 
 ```bash
 # lihat dulu apa aja yang ada
@@ -12,50 +12,119 @@ npx skills add dimsdeall/my-skills --list
 npx skills add dimsdeall/my-skills
 
 # pasang satu skill aja
-npx skills add dimsdeall/my-skills --skill hello-world
-npx skills add dimsdeall/my-skills --skill hermes-workflow
-npx skills add dimsdeall/my-skills --skill 9router-ops
+npx skills add dimsdeall/my-skills --skill brainstorming
+npx skills add dimsdeall/my-skills --skill spec-driven-development
 ```
 
-## Daftar Skill
+> Repo ini **private** — instal butuh `gh auth login` sebagai `dimsdeall` atau jadi collaborator.
 
+## Lifecycle — Idea → Ship
+
+```
+IDEA ──→ SPEC ──→ PLAN ──→ BUILD ──→ VERIFY ──→ REVIEW ──→ SHIP ──→ OPERATE
+  │        │       │        │         │          │        │        │
+  brainstorm  spec  planning  incremental debug  code   shipping observability
+  interview  driven breakdown  + TDD   +recovery review + CI/CD  + monitor
+  idea-refine                   +context                 + deprecation
+                                +source-driven
+```
+
+## Daftar Skill (29)
+
+### Custom milik Dimas (3)
 | Skill | Deskripsi |
 |-------|-----------|
-| `hello-world` | Template minimal — buat tes instalasi & starter skill baru |
+| `hello-world` | Template minimal — tes instalasi & starter skill baru |
 | `hermes-workflow` | Workflow Hermes Agent: cron + Combi-hermes via 9router + gaya Minji |
-| `9router-ops` | Operasional 9Router gateway (PM2, build, update v0.5.69→v0.5.75) |
+| `9router-ops` | Operasional 9Router gateway (PM2, build, update) |
 
-> Mau nambah skill baru? Duplikasi `skills/hello-world/` → ganti `name` & `description` di frontmatter `SKILL.md` → push.
+### Define — Mau bikin apa? (5)
+| Skill | Deskripsi |
+|-------|-----------|
+| `brainstorming` | **Gerbang pertama** — klasifikasi Spike/Bounded/Architectural, Socratic refinement, hard-gate approval sebelum coding (obra/superpowers, S-rank) |
+| `interview-me` | Interogasi requirement satu pertanyaan per pesan |
+| `idea-refine` | Varian ide & pematangan konsep |
+| `spec-driven-development` | Tulis spec/PRD sebelum coding — source of truth |
+| `constraint-driven-development` | Tetapkan quality bar sekali, enforce di mana-mana |
+
+### Plan — Gimana ngerjainnya? (3)
+| Skill | Deskripsi |
+|-------|-----------|
+| `planning-and-task-breakdown` | Pecah spec jadi task atomik + acceptance criteria |
+| `context-engineering` | Siapkan konteks repo: struktur, pola existing |
+| `using-agent-skills` | Meta-skill — routing intent → skill yang tepat |
+
+### Build — Ngerjainnya (5)
+| Skill | Deskripsi |
+|-------|-----------|
+| `incremental-implementation` | Satu slice satu commit, jangan big bang |
+| `test-driven-development` | RED-GREEN-REFACTOR, coverage 80%+ |
+| `api-and-interface-design` | Desain API & interface |
+| `frontend-ui-engineering` | Engineering UI |
+| `source-driven-development` | Bukti dari docs/code sebelum nulis |
+
+### Verify — Yakin bener? (5)
+| Skill | Deskripsi |
+|-------|-----------|
+| `debugging-and-error-recovery` | Reproduksi → lokalisasi → fix → guard |
+| `browser-testing-with-devtools` | Testing via browser automation |
+| `security-and-hardening` | Hardening & vulnerability check |
+| `performance-optimization` | Optimasi performa |
+| `doubt-driven-development` | Stakes tinggi / code asing — verifikasi ekstra |
+
+### Review — Layak merge? (4)
+| Skill | Deskripsi |
+|-------|-----------|
+| `code-review-and-quality` | Review 5 axis: correctness, design, readability, test, security |
+| `code-simplification` | Clarity over cleverness |
+| `documentation-and-adrs` | ADR & dokumentasi keputusan arsitektur |
+| `deprecation-and-migration` | Deprecation & migrasi yang aman |
+
+### Ship & Operate (4)
+| Skill | Deskripsi |
+|-------|-----------|
+| `git-workflow-and-versioning` | Branching, conventional commit, PR |
+| `ci-cd-and-automation` | CI/CD pipeline |
+| `shipping-and-launch` | Checklist rilis & go-live |
+| `observability-and-instrumentation` | Log, metrik, alert, monitoring |
 
 ## Struktur
 
 ```
 my-skills/
-├── skills/<nama-skill>/SKILL.md   # tiap skill = 1 folder + 1 SKILL.md (wajib)
-├── references/                      # checklist/shared docs (opsional)
-├── docs/                            # panduan tambahan
-├── AGENTS.md                        # panduan untuk AI agent yang ngerjain repo ini
-├── plugin.json                      # metadata marketplace
+├── skills/<nama>/SKILL.md          # tiap skill = 1 folder + 1 SKILL.md (wajib)
+│   └── scripts/, references/       # opsional per-skill (brainstorming punya)
+├── references/                      # 7 shared checklist (dipakai banyak skill)
+│   ├── accessibility-checklist.md
+│   ├── definition-of-done.md
+│   ├── observability-checklist.md
+│   ├── orchestration-patterns.md
+│   ├── performance-checklist.md
+│   ├── security-checklist.md
+│   └── testing-patterns.md
+├── docs/
+├── AGENTS.md                        # panduan AI agent yang ngerjain repo ini
+├── plugin.json
 └── README.md
 ```
 
-## Cara buat skill baru (30 detik)
+## Cara buat skill baru
 
 ```bash
-cp -r skills/hello-world skills/nama-skill-baru
-# edit skills/nama-skill-baru/SKILL.md -> ganti name & description di frontmatter
-# edit isi workflow-nya, lalu:
-git add skills/nama-skill-baru && git commit -m "feat: add nama-skill-baru" && git push
+cp -r skills/hello-world skills/nama-baru
+# edit skills/nama-baru/SKILL.md -> ganti name & description (harus == nama folder)
+git add skills/nama-baru && git commit -m "feat: add nama-baru" && git push
+# langsung: npx skills add dimsdeall/my-skills --skill nama-baru --list
 ```
 
-## Instal lokal (OpenCode)
+## Instal lokal (OpenCode / Hermes)
 
 ```bash
 mkdir -p .opencode/skills
-cp -r /path/to/my-skills/skills/<nama> .opencode/skills/
+cp -r ~/projects/my-skills/skills/<nama> .opencode/skills/
 # atau global
 mkdir -p ~/.config/opencode/skills
-cp -r /path/to/my-skills/skills/<nama> ~/.config/opencode/skills/
+cp -r ~/projects/my-skills/skills/<nama> ~/.config/opencode/skills/
 ```
 
 ## Lisensi
