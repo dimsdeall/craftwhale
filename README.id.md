@@ -1,4 +1,4 @@
-# craftwhale 🐋 — Dimas Putra (dimsdeall)
+# craftwhale
 
 > [English](README.md) | **Indonesia**
 
