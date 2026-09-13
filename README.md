@@ -1,5 +1,7 @@
 # craftwhale
 
+> *Building big ships for the ocean, accompanied by a whale.*
+
 > **English** | [Indonesia](README.id.md)
 
 Production-grade agent skills — a full **Idea → Ship** lifecycle. **30 skills + 2 personas + 8 slash commands**, curated from open sources and wired to work together under one contract.

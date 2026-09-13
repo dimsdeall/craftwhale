@@ -1,5 +1,7 @@
 # craftwhale
 
+> *Membangun kapal besar untuk lautan, didampingi paus.*
+
 > [English](README.md) | **Indonesia**
 
 Kumpulan agent skills production-grade — lifecycle lengkap **Idea → Ship**. **30 skills + 2 persona + 8 slash command**, dikurasi dari sumber terbuka dan dirangkai dalam satu kontrak.

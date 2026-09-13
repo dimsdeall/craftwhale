@@ -1,6 +1,6 @@
 {
   "name": "craftwhale",
-  "version": "0.7.2",
-  "description": "CraftWhale 🐋 — 30 skills + 2 personas + 8 commands. Craft deep, ship big. Idea → Ship lifecycle (30 skills) for 70+ agents.",
+  "version": "0.1.0",
+  "description": "CraftWhale — Building big ships for the ocean, accompanied by a whale. 30 skills + 2 personas + 8 commands, Idea → Ship lifecycle for 70+ agents.",
   "owner": "dimsdeall"
 }
