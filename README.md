@@ -8,24 +8,9 @@ Production-grade agent skills — a full **Idea → Ship** lifecycle. **30 skill
 
 Works with 70+ agents (Claude Code, Cursor, Codex, Copilot, Cline, OpenCode, Hermes, etc.) via the open `skills` CLI.
 
-## Install
+## How It Works
 
-```bash
-# browse first
-npx skills add dimsdeall/craftwhale --list          # expect: Found 30 skills
-
-# install everything (30 skills + 8 commands + 2 personas)
-npx skills add dimsdeall/craftwhale
-
-# or one skill
-npx skills add dimsdeall/craftwhale --skill brainstorming
-```
-
-Per-category manual (pick 1 by 1 — Define/Plan/Build/Verify/Review/Ship/Explain/Personas) for Claude Code / OpenCode / Antigravity / CommandCode → [docs/installation.md](docs/installation.md)
-
-## How It Works — Lifecycle
-
-Every feature follows the same contract. One spec = one folder, and nothing ships without passing its gates.
+Every feature follows the same contract. One spec = one folder, and nothing ships without passing its gates. `Command = WHEN` · `Skill = HOW` · `Persona = WHO`.
 
 ```
 /constraints (optional, once — quality bar)
@@ -37,38 +22,20 @@ Every feature follows the same contract. One spec = one folder, and nothing ship
  /spec         /plan         /build       /verify       /review        /ship  
 ```
 
-| Step | You run | What it does | Gate |
-|------|---------|--------------|------|
-| **Constraints** | `/constraints` | Interviews (4Q) → writes `docs/CONSTRAINTS.md` (Floor + Enforced with numbers + Exceptions), wires `check:fast/task/full` | Once at repo start |
-| **Spec** | `/spec` | `brainstorming` hard-gate (Spike/Bounded/Architectural) → Socratic refine → `prd.md` (8 sections: Goal, Personas, Stories, Requirements, AC…) | **STOP** — waits for your explicit approval |
-| **Plan** | `/plan` | Reads `prd.md` → `implementation-plan.md` (Mermaid 5-layer + ERD + API + frontend) → `todo.md` (vertical slices) | Approval on plan |
-| **Build** | `/build` | TDD loop RED→GREEN→regression, 1 task = 1 conventional commit, marks `[x]` in `todo.md` | Tests + build green |
-| **Verify** | `/verify` | Full suite + debug + conditional security/perf/web (web is **optional** — skipped for CLI/API-only) | Must be green before review |
-| **Review** | `/review` | `code-reviewer` persona — 5-axis report (Critical/Important/Suggestion + `file:line`) | Fix Critical before ship |
-| **Ship** | `/ship` | Fan-out `code-reviewer` + `security-auditor` → GO/NO-GO + rollback plan → `docs/specs/archive/` when todos 100% | Archive only on 100% ✔ |
+| Phase | Command (WHEN) | Skills (HOW) | Output |
+|-------|----------------|--------------|--------|
+| **Constraints** *(once, optional)* | `/constraints` | `constraint-driven-development` — interview 4Q → Floor + Enforced + Exceptions | `docs/CONSTRAINTS.md` + `check:fast/task/full` |
+| **Spec** | `/spec` | `brainstorming` (hard-gate) · `interview-me` · `idea-refine` · `spec-driven-development` | `docs/specs/active/<id>/prd.md` (8 sections: Goal, Personas, Stories, Requirements, AC) — **STOP for approval** |
+| **Plan** | `/plan` | `planning-and-task-breakdown` · `context-engineering` · `using-agent-skills` | `implementation-plan.md` (Mermaid 5-layer + ERD + API + frontend) + `todo.md` (vertical slices) — approval |
+| **Build** | `/build` | `incremental-implementation` · `test-driven-development` · `api-and-interface-design` · `frontend-ui-engineering` · `source-driven-development` | code + tests — 1 task = 1 commit `RED→GREEN→regression` |
+| **Verify** | `/verify` | `debugging-and-error-recovery` · `browser-testing-with-devtools` · `webapp-testing` *(web optional)* · `security-and-hardening` · `performance-optimization` · `doubt-driven-development` | green tests + build — must pass before review |
+| **Review** | `/review` | `code-review-and-quality` · `code-simplification` · `documentation-and-adrs` · `deprecation-and-migration` + `code-reviewer` persona (5-axis) | report `Critical/Important/Suggestion` + `file:line` + ADR — fix Critical before ship |
+| **Ship** | `/ship` | `git-workflow-and-versioning` · `ci-cd-and-automation` · `shipping-and-launch` · `observability-and-instrumentation` + `code-reviewer` + `security-auditor` fan-out | tag · CHANGELOG · `docs/specs/archive/<id>/` (only when todos 100% ✔) — GO/NO-GO + rollback |
+| **Explain** *(anytime, optional, read-only)* | `/explain-code` | `improve-codebase-architecture` · `database-schema-designer` · `write-feature-docs` | `docs/explain/` — architecture / schema / features |
 
-Full flow & gates → [docs/lifecycle.md](docs/lifecycle.md) · Quality bar → [docs/constraints.md](docs/constraints.md)
-
-## Commands (8 = 6 CORE + 2 OPTIONAL)
-
-Slash commands that drive the lifecycle — each one is the **WHEN**.
-
-| Command | Phase | Output |
-|---------|-------|--------|
-| `/spec` | SPEC | `docs/specs/active/<id>/prd.md` |
-| `/plan` | PLAN | `implementation-plan.md` + `todo.md` |
-| `/build` | BUILD | code + tests (1 commit per task) |
-| `/verify` | VERIFY | green gates |
-| `/review` | REVIEW | `code-reviewer` report + ADR in `docs/adr/` |
-| `/ship` | SHIP | tag · CHANGELOG · `docs/specs/archive/<id>/` |
-| `/constraints` | *optional* | `docs/CONSTRAINTS.md` |
-| `/explain-code` | *optional, read-only* | architecture / schema / features |
-
-Commands are `WHEN` — they compose personas (WHO) and skills (HOW). Full contract per command → [docs/commands.md](docs/commands.md)
+> **30 skills** grouped above + `references/` ×7 shared checklists. Full tables, provenance & install per category (Define/Plan/Build/Verify/Review/Ship/Explain/Personas) → [docs/skills.md](docs/skills.md) · [docs/personas.md](docs/personas.md) · [docs/commands.md](docs/commands.md) · [docs/installation.md](docs/installation.md) · lifecycle gates → [docs/lifecycle.md](docs/lifecycle.md)
 
 ## Personas (2 — optional, WHO)
-
-Personas are specialist perspectives — `Skill = HOW` · `Persona = WHO` · `Command = WHEN`.
 
 | Persona | Role | Used in |
 |---------|------|---------|
@@ -76,22 +43,6 @@ Personas are specialist perspectives — `Skill = HOW` · `Persona = WHO` · `Co
 | `security-auditor` | Security Engineer — OWASP & threat modeling, exploitable issues only | `/ship` fan-out (conditional — only when spec touches auth/input) |
 
 Personas don't call other personas — composition lives in the command. Detail → [docs/personas.md](docs/personas.md)
-
-## Skills (30)
-
-Grouped by lifecycle. All live in `skills/<name>/SKILL.md`.
-
-| Group | Count | Highlights |
-|-------|-------|------------|
-| **Define** | 5 | `brainstorming` (hard-gate), `interview-me`, `idea-refine`, `spec-driven-development`, `constraint-driven-development` |
-| **Plan** | 3 | `planning-and-task-breakdown`, `context-engineering`, `using-agent-skills` |
-| **Build** | 5 | `incremental-implementation`, `test-driven-development`, `api-and-interface-design`, `frontend-ui-engineering`, `source-driven-development` |
-| **Verify** | 6 | `debugging-and-error-recovery`, `browser-testing-with-devtools`, `webapp-testing` *(web optional)*, `security-and-hardening`, `performance-optimization`, `doubt-driven-development` |
-| **Review** | 4 | `code-review-and-quality`, `code-simplification`, `documentation-and-adrs`, `deprecation-and-migration` |
-| **Ship & Operate** | 4 | `git-workflow-and-versioning`, `ci-cd-and-automation`, `shipping-and-launch`, `observability-and-instrumentation` |
-| **Explain** *(read-only, optional)* | 3 | `improve-codebase-architecture`, `database-schema-designer`, `write-feature-docs` |
-
-Full table + sources & shared checklists (`references/` ×7) → [docs/skills.md](docs/skills.md)
 
 ## Development Structure
 
