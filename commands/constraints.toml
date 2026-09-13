@@ -1,4 +1,4 @@
-description = "CONSTRAINTS — define & enforce quality bar: interview, docs/CONSTRAINTS.md, tools, ratchets, guards"
+description = "CONSTRAINTS — define and enforce quality bar via interview and docs/CONSTRAINTS.md"
 
 prompt = """
 Invoke constraint-driven-development. All quality-bar artifacts live under docs/.

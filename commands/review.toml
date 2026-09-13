@@ -1,4 +1,4 @@
-description = "REVIEW — via code-reviewer persona (5-axis) + simplification + ADR — for active spec in docs/specs/active/<spec-id>"
+description = "REVIEW — via code-reviewer persona 5-axis with simplification and ADR for active spec"
 
 prompt = """
 Use the code-reviewer persona (agents/code-reviewer.md — Senior Staff Engineer, five-axis review) as the WHO, which internally invokes the HOW skills. Scoped to the active spec in docs/specs/.

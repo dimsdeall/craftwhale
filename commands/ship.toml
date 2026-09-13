@@ -1,4 +1,4 @@
-description = "SHIP — orchestrator: parallel fan-out code-reviewer + security-auditor, merge → go/no-go + archive spec to docs/specs/archive/ when todos 100%"
+description = "SHIP — orchestrator with parallel fan-out code-reviewer and security-auditor merge to go or no-go and archive spec when todos complete"
 
 prompt = """
 Orchestrator command — fans out to specialist personas in parallel, then merges. Scoped to docs/specs/.
