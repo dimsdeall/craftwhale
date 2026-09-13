@@ -83,7 +83,6 @@ Pack-level checklists in `references/` used by multiple skills. Per-skill `npx` 
 
 ## Provenance
 
-- 25 from `addyosmani/agent-skills`
 - 1 `brainstorming` from `obra/superpowers` (MIT, S-rank)
 - 1 `improve-codebase-architecture` from `mattpocock/skills` (MIT)
 - 1 `database-schema-designer` from `softaworks/agent-toolkit` (MIT)

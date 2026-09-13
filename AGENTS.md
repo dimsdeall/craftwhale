@@ -39,7 +39,6 @@ Collection **30 Agent Skills + 8 Commands** — 6 CORE (Spec → Ship) + 2 OPTIO
 
 ## Provenance
 
-- 25 skills from `addyosmani/agent-skills`
 - 1 skill `brainstorming` from `obra/superpowers` (MIT, S-rank)
 - 1 skill `improve-codebase-architecture` from `mattpocock/skills` (MIT, 915K)
 - 1 skill `database-schema-designer` from `softaworks/agent-toolkit` (MIT)
