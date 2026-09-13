@@ -1,4 +1,4 @@
-description = "VERIFY — prove every change: test, debug, security, perf — for active spec in docs/specs/active/<spec-id>"
+description = "VERIFY — prove every change with test debug security and perf for active spec"
 
 prompt = """
 Invoke verification skills as needed — debugging-and-error-recovery is the default, add others by context. Scope is the active spec in docs/specs/. Not all projects are web — web verification is optional.
