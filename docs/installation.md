@@ -1,6 +1,6 @@
 # Installation
 
-> Works with 70+ agents via the open `skills` CLI: `npx skills add dimsdeall/my-skills --list` → `npx skills add dimsdeall/my-skills`.
+> Works with 70+ agents via the open `skills` CLI: `npx skills add dimsdeall/craftwhale --list` → `npx skills add dimsdeall/craftwhale`.
 > This page is the **per-category manual** — pick only what you need, for the agent you use.
 
 ## 1. Pick by Category — What Do You Want to Install?
@@ -26,17 +26,17 @@ Don't install everything if you don't need it. Pick categories one by one.
 
 ```bash
 # via gh
-gh repo clone dimsdeall/my-skills /tmp/my-skills
+gh repo clone dimsdeall/craftwhale /tmp/craftwhale
 
 # or https
-git clone https://github.com/dimsdeall/my-skills.git /tmp/my-skills
+git clone https://github.com/dimsdeall/craftwhale.git /tmp/craftwhale
 ```
 
 Or use the open `skills` CLI per-skill (copies only `skills/<name>/`, not `references/`):
 
 ```bash
-npx skills add dimsdeall/my-skills --skill brainstorming   # one skill
-npx skills add dimsdeall/my-skills --list                  # browse
+npx skills add dimsdeall/craftwhale --skill brainstorming   # one skill
+npx skills add dimsdeall/craftwhale --list                  # browse
 ```
 
 > Per-skill `npx` copies only `skills/<name>/` — shared `references/` is not included. If a skill needs a checklist, copy `references/` manually (see each agent below).
@@ -47,49 +47,49 @@ Each agent discovers skills from different paths. Project-local = this repo only
 
 | Agent | Skills (project) | Skills (global) | Commands | Personas | Global config |
 |-------|------------------|-----------------|----------|----------|---------------|
-| **Claude Code** | `.claude/skills/<name>/` | `~/.claude/skills/<name>/` | `.claude/commands/*.md` | `.claude/agents/*.md` | Marketplace: `/plugin marketplace add dimsdeall/my-skills` |
+| **Claude Code** | `.claude/skills/<name>/` | `~/.claude/skills/<name>/` | `.claude/commands/*.md` | `.claude/agents/*.md` | Marketplace: `/plugin marketplace add dimsdeall/craftwhale` |
 | **OpenCode** | `.opencode/skills/<name>/` | `~/.config/opencode/skills/<name>/` | `.opencode/commands/*.md` | `agents/*.md` (or `.opencode/prompts/agents/`) | Also reads `.claude/skills/` & `.agents/skills/` |
-| **Antigravity (agy)** | Native plugin — `agy plugin install <path-or-url>` (skills auto-discovered) | `~/.gemini/config/plugins/my-skills/` | Legacy `commands/*.toml` wrappers not exposed in agy 1.1.x — invoke skill directly | `agents/*.md` inside plugin | `agy plugin list` / `agy plugin validate` |
+| **Antigravity (agy)** | Native plugin — `agy plugin install <path-or-url>` (skills auto-discovered) | `~/.gemini/config/plugins/craftwhale/` | Legacy `commands/*.toml` wrappers not exposed in agy 1.1.x — invoke skill directly | `agents/*.md` inside plugin | `agy plugin list` / `agy plugin validate` |
 | **CommandCode (cmd)** | `.commandcode/skills/<name>/` | `~/.commandcode/skills/<name>/` | Slash menu auto-discovers skills — `[skill]` tag | `agents/*.md` | Also reads `.agents/skills/<name>/` |
 
 ### Claude Code
 
 ```bash
-# from your project root — assumes /tmp/my-skills exists
+# from your project root — assumes /tmp/craftwhale exists
 # Example: install only Define (5) + Plan (3)
 mkdir -p .claude/skills
 for s in brainstorming interview-me idea-refine spec-driven-development constraint-driven-development \
          planning-and-task-breakdown context-engineering using-agent-skills; do
-  cp -r /tmp/my-skills/skills/$s .claude/skills/
+  cp -r /tmp/craftwhale/skills/$s .claude/skills/
 done
 
 # Add a category later — e.g. Build
 for s in incremental-implementation test-driven-development api-and-interface-design \
          frontend-ui-engineering source-driven-development; do
-  cp -r /tmp/my-skills/skills/$s .claude/skills/
+  cp -r /tmp/craftwhale/skills/$s .claude/skills/
 done
 
 # Verify — only if needed (checklists referenced by skills)
-mkdir -p .claude/skills/references 2>/dev/null; cp -r /tmp/my-skills/references .claude/ 2>/dev/null || cp -r /tmp/my-skills/references .claude/skills/references
+mkdir -p .claude/skills/references 2>/dev/null; cp -r /tmp/craftwhale/references .claude/ 2>/dev/null || cp -r /tmp/craftwhale/references .claude/skills/references
 
 # Commands (optional — lifecycle entry points)
 mkdir -p .claude/commands
-cp /tmp/my-skills/commands/*.toml .claude/commands/ 2>/dev/null || cp /tmp/my-skills/commands/*.md .claude/commands/ 2>/dev/null || true
+cp /tmp/craftwhale/commands/*.toml .claude/commands/ 2>/dev/null || cp /tmp/craftwhale/commands/*.md .claude/commands/ 2>/dev/null || true
 # If using the legacy command TOMLs, convert per your Claude setup (some versions expect .md)
 
 # Personas (optional — WHO for /review & /ship)
 mkdir -p .claude/agents
-cp /tmp/my-skills/agents/*.md .claude/agents/
+cp /tmp/craftwhale/agents/*.md .claude/agents/
 
 # Global (all projects)
-mkdir -p ~/.claude/skills && cp -r /tmp/my-skills/skills/<name> ~/.claude/skills/
+mkdir -p ~/.claude/skills && cp -r /tmp/craftwhale/skills/<name> ~/.claude/skills/
 ```
 
 Alternative marketplace (if published):
 
 ```bash
-/plugin marketplace add dimsdeall/my-skills
-/plugin install my-skills@my-skills
+/plugin marketplace add dimsdeall/craftwhale
+/plugin install craftwhale@craftwhale
 ```
 
 ### OpenCode
@@ -99,33 +99,33 @@ Alternative marketplace (if published):
 mkdir -p .opencode/skills
 # Example: Define only
 for s in brainstorming interview-me idea-refine spec-driven-development constraint-driven-development; do
-  cp -r /tmp/my-skills/skills/$s .opencode/skills/
+  cp -r /tmp/craftwhale/skills/$s .opencode/skills/
 done
 # Add more categories the same way — e.g. Verify (web optional: skip webapp-testing if not a web project)
 for s in debugging-and-error-recovery security-and-hardening performance-optimization doubt-driven-development browser-testing-with-devtools; do
-  cp -r /tmp/my-skills/skills/$s .opencode/skills/
+  cp -r /tmp/craftwhale/skills/$s .opencode/skills/
 done
 # Optional web verification (only for web projects)
-cp -r /tmp/my-skills/skills/webapp-testing .opencode/skills/
+cp -r /tmp/craftwhale/skills/webapp-testing .opencode/skills/
 
 # Shared references (copy once if any installed skill needs them)
-cp -r /tmp/my-skills/references .opencode/references 2>/dev/null; cp -r /tmp/my-skills/references ./references 2>/dev/null || true
+cp -r /tmp/craftwhale/references .opencode/references 2>/dev/null; cp -r /tmp/craftwhale/references ./references 2>/dev/null || true
 
 # Commands (optional)
 mkdir -p .opencode/commands
-cp /tmp/my-skills/commands/*.toml .opencode/commands/ 2>/dev/null; cp /tmp/my-skills/commands/*.md .opencode/commands/ 2>/dev/null || true
+cp /tmp/craftwhale/commands/*.toml .opencode/commands/ 2>/dev/null; cp /tmp/craftwhale/commands/*.md .opencode/commands/ 2>/dev/null || true
 # Add to .opencode/opencode.json if you use command.paths:
 # "command": { "paths": { "commands": [".opencode/commands"], "template": ".opencode/commands" } }
 
 # Personas
-mkdir -p agents && cp /tmp/my-skills/agents/*.md agents/
+mkdir -p agents && cp /tmp/craftwhale/agents/*.md agents/
 
 # Global (all projects)
 mkdir -p ~/.config/opencode/skills
-cp -r /tmp/my-skills/skills/<name> ~/.config/opencode/skills/
+cp -r /tmp/craftwhale/skills/<name> ~/.config/opencode/skills/
 
 # Cross-compatible fallback (OpenCode also reads these)
-mkdir -p .agents/skills && cp -r /tmp/my-skills/skills/<name> .agents/skills/
+mkdir -p .agents/skills && cp -r /tmp/craftwhale/skills/<name> .agents/skills/
 ```
 
 Verify config schema after editing `.opencode/opencode.json[c]`:
@@ -141,14 +141,14 @@ Antigravity installs the whole repo as a native plugin — then invoke skills pe
 
 ```bash
 # Recommended — from remote
-agy plugin install https://github.com/dimsdeall/my-skills.git
+agy plugin install https://github.com/dimsdeall/craftwhale.git
 
 # Or from local clone
-agy plugin install /tmp/my-skills
+agy plugin install /tmp/craftwhale
 
 # Verify
 agy plugin list
-agy plugin validate /tmp/my-skills
+agy plugin validate /tmp/craftwhale
 
 # Invoke per category — one at a time, as needed
 # Define:
@@ -171,7 +171,7 @@ agy plugin validate /tmp/my-skills
 
 > Note: In agy 1.1.x, legacy wrappers `commands/*.toml` (`/spec`, `/build`, etc.) are reported as "converted" but don't appear in the slash menu. Invoke the skill directly as shown above (tracked in `addyosmani/agent-skills#445`).
 
-Global plugin path: `~/.gemini/config/plugins/my-skills/` (not the legacy `~/.gemini/antigravity-cli/plugins/`).
+Global plugin path: `~/.gemini/config/plugins/craftwhale/` (not the legacy `~/.gemini/antigravity-cli/plugins/`).
 
 ### CommandCode (cmd)
 
@@ -179,25 +179,25 @@ Global plugin path: `~/.gemini/config/plugins/my-skills/` (not the legacy `~/.ge
 
 ```bash
 # Interactive — shows all 30 skills, pick one category at a time
-cmd skills add dimsdeall/my-skills              # project scope → .commandcode/skills/
+cmd skills add dimsdeall/craftwhale              # project scope → .commandcode/skills/
 # In the TUI: check only Define (5), confirm → repeat for the next category
 
 # Non-interactive — one skill at a time
-cmd skills add dimsdeall/my-skills -s brainstorming
-cmd skills add dimsdeall/my-skills -s interview-me
-cmd skills add dimsdeall/my-skills -s spec-driven-development
+cmd skills add dimsdeall/craftwhale -s brainstorming
+cmd skills add dimsdeall/craftwhale -s interview-me
+cmd skills add dimsdeall/craftwhale -s spec-driven-development
 
 # Global (all projects)
-cmd skills add dimsdeall/my-skills --global
-cmd skills add dimsdeall/my-skills -s brainstorming --global
+cmd skills add dimsdeall/craftwhale --global
+cmd skills add dimsdeall/craftwhale -s brainstorming --global
 
 # Manual copy (alternative)
 mkdir -p .commandcode/skills
 for s in brainstorming interview-me idea-refine spec-driven-development constraint-driven-development; do
-  cp -r /tmp/my-skills/skills/$s .commandcode/skills/
+  cp -r /tmp/craftwhale/skills/$s .commandcode/skills/
 done
 # Also reads .agents/skills/
-mkdir -p .agents/skills && cp -r /tmp/my-skills/skills/<name> .agents/skills/
+mkdir -p .agents/skills && cp -r /tmp/craftwhale/skills/<name> .agents/skills/
 ```
 
 Manage:
@@ -206,7 +206,7 @@ Manage:
 cmd skills list                                    # list installed
 cmd skills remove brainstorming                    # remove project-scoped
 cmd skills remove brainstorming --global           # remove global
-cmd skills add dimsdeall/my-skills --force         # update / overwrite
+cmd skills add dimsdeall/craftwhale --force         # update / overwrite
 ```
 
 Skills appear in the TUI slash menu as `/spec-driven-development   [skill]`.
@@ -215,7 +215,7 @@ Skills appear in the TUI slash menu as `/spec-driven-development   [skill]`.
 
 ```bash
 # Skills CLI (any agent)
-npx skills add dimsdeall/my-skills --list   # expect: Found 30 skills
+npx skills add dimsdeall/craftwhale --list   # expect: Found 30 skills
 
 # Per-agent checks
 ls .claude/skills/          2>/dev/null | wc -l       # Claude
@@ -231,12 +231,12 @@ ls commands/*.toml          2>/dev/null | wc -l       # commands (8)
 ```bash
 # Skills CLI — update all or one
 npx skills update
-npx skills add dimsdeall/my-skills --skill <name> --force
+npx skills add dimsdeall/craftwhale --skill <name> --force
 
 # Manual — re-copy only the categories you use
-cp -r /tmp/my-skills/skills/<name> .claude/skills/        # or .opencode/skills/ / .commandcode/skills/
-agy plugin install /tmp/my-skills --force 2>/dev/null || agy plugin install https://github.com/dimsdeall/my-skills.git
-cmd skills add dimsdeall/my-skills -s <name> --force
+cp -r /tmp/craftwhale/skills/<name> .claude/skills/        # or .opencode/skills/ / .commandcode/skills/
+agy plugin install /tmp/craftwhale --force 2>/dev/null || agy plugin install https://github.com/dimsdeall/craftwhale.git
+cmd skills add dimsdeall/craftwhale -s <name> --force
 ```
 
 ## 6. Adding a New Skill to This Repo

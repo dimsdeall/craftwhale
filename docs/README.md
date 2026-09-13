@@ -1,6 +1,6 @@
 # docs/
 
-> Technical documentation for `dimsdeall/my-skills`. Start here, then dive into the page you need.
+> Technical documentation for `dimsdeall/craftwhale`. Start here, then dive into the page you need.
 
 | Page | What you'll find |
 |------|------------------|

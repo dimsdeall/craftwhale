@@ -1,4 +1,4 @@
-# my-skills — Dimas Putra (dimsdeall)
+# craftwhale 🐋 — Dimas Putra (dimsdeall)
 
 > [English](README.md) | **Indonesia**
 
@@ -10,13 +10,13 @@ Kompatibel dengan 70+ agent (Claude Code, Cursor, Codex, Copilot, Cline, OpenCod
 
 ```bash
 # lihat dulu
-npx skills add dimsdeall/my-skills --list          # harus: Found 30 skills
+npx skills add dimsdeall/craftwhale --list          # harus: Found 30 skills
 
 # pasang semua (30 skills + 8 commands + 2 personas)
-npx skills add dimsdeall/my-skills
+npx skills add dimsdeall/craftwhale
 
 # atau satu skill saja
-npx skills add dimsdeall/my-skills --skill brainstorming
+npx skills add dimsdeall/craftwhale --skill brainstorming
 ```
 
 Panduan per kategori (pilih 1 per 1 — Define/Plan/Build/Verify/Review/Ship/Explain/Personas) untuk Claude Code / OpenCode / Antigravity / CommandCode → [docs/installation.md](docs/installation.md)
@@ -92,10 +92,10 @@ Tabel lengkap + sumber & checklist bersama (`references/` ×7) → [docs/skills.
 
 ## Struktur Development
 
-**Repo ini (`my-skills`)** — library skill-nya sendiri:
+**Repo ini (`craftwhale`)** — library skill-nya sendiri:
 
 ```
-my-skills/
+craftwhale/
 ├── agents/*.md          # 2 persona (WHO)
 ├── commands/*.toml      # 8 slash commands (WHEN)
 ├── skills/<name>/       # 30 skills (HOW)

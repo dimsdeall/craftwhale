@@ -1,4 +1,4 @@
-# AGENTS.md — my-skills (dimsdeall)
+# AGENTS.md — craftwhale 🐋 (dimsdeall)
 
 Koleksi **30 Agent Skills + 8 Commands** — 6 CORE (Spec → Ship) + 2 OPSIONAL. Kontrak: /constraints (sekali, opsional) → /spec → prd.md (WHAT/WHY) → /plan → implementation-plan.md (HOW) + tasks/plan.md (ORDER) → /build → code.
 
@@ -20,9 +20,9 @@ Koleksi **30 Agent Skills + 8 Commands** — 6 CORE (Spec → Ship) + 2 OPSIONAL
 - `brainstorming` adalah **gerbang pertama** sebelum semua skill lain — klasifikasi Spike/Bounded/Architectural + hard-gate approval sebelum coding. Jangan skip.
 - Shared checklist di `references/` — referensikan via path relatif dari skill.
 - Skill baru: duplikasi skill terdekat sebagai template → edit frontmatter → push.
-- Setelah tambah/edit skill → test: `npx skills add dimsdeall/my-skills --list` harus muncul (`Found 30 skills`).
+- Setelah tambah/edit skill → test: `npx skills add dimsdeall/craftwhale --list` harus muncul (`Found 30 skills`).
 
-## Intent → Skill Mapping (untuk agent yang pakai repo ini via `npx skills add dimsdeall/my-skills`)
+## Intent → Skill Mapping (untuk agent yang pakai repo ini via `npx skills add dimsdeall/craftwhale`)
 
 - Belum tahu mau bikin apa / ide kasar → `brainstorming` dulu, lalu `interview-me` / `idea-refine`
 - Mau spec/PRD → `spec-driven-development`

@@ -2,7 +2,7 @@
 
 > All docs output lives under `docs/`. Per-spec folders keep work isolated.
 
-## Consumer Project Layout (the project you apply my-skills to)
+## Consumer Project Layout (the project you apply craftwhale to)
 
 ```
 project-root/
@@ -37,12 +37,12 @@ project-root/
 | Collision → ask | `/spec` step 7 & `/plan` guard | Scan active prd/plan/todo overlap + unchecked todos → STOP → **(a) Merge** into active spec, **(b) Split** (new parallel folder), **(c) Defer** |
 | Done → archive | `/ship` step 7 | `git mv docs/specs/active/<id> docs/specs/archive/<id>` only when every `- [ ]` → `- [x]` |
 
-## This Repo's Own Layout (my-skills)
+## This Repo's Own Layout (craftwhale)
 
 > `docs/` here holds **only** the 8 technical docs + index. Consumer-only folders (`specs/`, `adr/`, `explain/`, `CONSTRAINTS.md`) live in **consumer projects**, not in this repo.
 
 ```
-my-skills/
+craftwhale/
 ├── agents/*.md                    # 2 personas: code-reviewer, security-auditor (WHO)
 ├── commands/*.toml                # 8 commands: 6 CORE + 2 OPTIONAL
 ├── skills/<name>/SKILL.md         # 30 skills (see docs/skills.md)
@@ -71,7 +71,7 @@ my-skills/
 └── README.id.md                   # Indonesian mirror
 ```
 
-> `docs/specs/`, `docs/adr/`, `docs/explain/`, `docs/CONSTRAINTS.md` are **not** in this repo. They are created by `/spec` → `/ship` inside the project that *uses* my-skills (see Consumer layout above).
+> `docs/specs/`, `docs/adr/`, `docs/explain/`, `docs/CONSTRAINTS.md` are **not** in this repo. They are created by `/spec` → `/ship` inside the project that *uses* craftwhale (see Consumer layout above).
 
 ## Adding a New Skill
 
@@ -80,5 +80,5 @@ cp -r skills/spec-driven-development skills/my-new-skill
 # edit skills/my-new-skill/SKILL.md — change frontmatter name & description (must == folder name)
 git add skills/my-new-skill && git commit -m "feat: add my-new-skill" && git push
 # verify
-npx skills add dimsdeall/my-skills --skill my-new-skill --list
+npx skills add dimsdeall/craftwhale --skill my-new-skill --list
 ```
