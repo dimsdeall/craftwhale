@@ -19,7 +19,7 @@ npx skills add dimsdeall/my-skills
 npx skills add dimsdeall/my-skills --skill brainstorming
 ```
 
-Update & copy manual → [docs/installation.md](docs/installation.md)
+Panduan per kategori (pilih 1 per 1 — Define/Plan/Build/Verify/Review/Ship/Explain/Personas) untuk Claude Code / OpenCode / Antigravity / CommandCode → [docs/installation.md](docs/installation.md)
 
 ## Cara Kerja — Lifecycle
 

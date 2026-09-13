@@ -19,7 +19,7 @@ npx skills add dimsdeall/my-skills
 npx skills add dimsdeall/my-skills --skill brainstorming
 ```
 
-Update & manual copy → [docs/installation.md](docs/installation.md)
+Per-category manual (pick 1 by 1 — Define/Plan/Build/Verify/Review/Ship/Explain/Personas) for Claude Code / OpenCode / Antigravity / CommandCode → [docs/installation.md](docs/installation.md)
 
 ## How It Works — Lifecycle
 

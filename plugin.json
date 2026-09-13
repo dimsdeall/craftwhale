@@ -1,6 +1,6 @@
 {
   "name": "my-skills",
-  "version": "0.7.1",
-  "description": "Agent skills milik Dimas Putra (dimsdeall) — 30 skills + 2 personas + 8 commands. Docs: 8 technical pages + bilingual README (EN default).",
+  "version": "0.7.2",
+  "description": "Agent skills milik Dimas Putra (dimsdeall) — 30 skills + 2 personas + 8 commands. Install per kategori (Define/Plan/Build/Verify/Review/Ship/Explain/Personas) untuk Claude/OpenCode/Antigravity/CommandCode.",
   "owner": "dimsdeall"
 }
