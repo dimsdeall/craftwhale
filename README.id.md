@@ -30,10 +30,11 @@ Setiap fitur lewat kontrak yang sama. Satu spec = satu folder, tidak ada yang ri
 ```
 /constraints (opsional, sekali — quality bar)
     │
-IDEA ──→ SPEC ──→ PLAN ──→ BUILD ──→ VERIFY ──→ REVIEW ──→ SHIP ──→ OPERATE
- brainstorm  prd    impl-plan  code     tests    laporan   tag
- interview  WHAT/  + todos    RED→     + guard   5-axis   CHANGELOG
- idea-refine WHY    HOW+ORDER GREEN    hijau    → ADR    archive
+┌──────┐      ┌──────┐      ┌──────┐      ┌──────┐      ┌──────┐      ┌──────┐      ┌──────┐
+│ IDEA │ ───▶ │ SPEC │ ───▶ │ PLAN │ ───▶ │BUILD │ ───▶ │VERIFY│ ───▶ │REVIEW│ ───▶ │ SHIP │
+│Brain │      │ PRD  │      │ HOW  │      │ Code │      │ Test │      │ Gate │      │  Go  │
+└──────┘      └──────┘      └──────┘      └──────┘      └──────┘      └──────┘      └──────┘
+ /spec         /spec         /plan         /build       /verify       /review        /ship  
 ```
 
 | Tahap | Command | Yang dilakukan | Gate |

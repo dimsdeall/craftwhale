@@ -30,10 +30,11 @@ Every feature follows the same contract. One spec = one folder, and nothing ship
 ```
 /constraints (optional, once — quality bar)
     │
-IDEA ──→ SPEC ──→ PLAN ──→ BUILD ──→ VERIFY ──→ REVIEW ──→ SHIP ──→ OPERATE
- brainstorm  prd    impl-plan  code     tests    report    tag
- interview  WHAT/  + todos    RED→     + guard   5-axis   CHANGELOG
- idea-refine WHY    HOW+ORDER GREEN    green    → ADR    archive
+┌──────┐      ┌──────┐      ┌──────┐      ┌──────┐      ┌──────┐      ┌──────┐      ┌──────┐
+│ IDEA │ ───▶ │ SPEC │ ───▶ │ PLAN │ ───▶ │BUILD │ ───▶ │VERIFY│ ───▶ │REVIEW│ ───▶ │ SHIP │
+│Brain │      │ PRD  │      │ HOW  │      │ Code │      │ Test │      │ Gate │      │  Go  │
+└──────┘      └──────┘      └──────┘      └──────┘      └──────┘      └──────┘      └──────┘
+ /spec         /spec         /plan         /build       /verify       /review        /ship  
 ```
 
 | Step | You run | What it does | Gate |

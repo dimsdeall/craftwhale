@@ -5,13 +5,11 @@
 ```
 /constraints (optional, once — quality bar)
     │
-IDEA ──→ SPEC ──→ PLAN ──→ BUILD ──→ VERIFY ──→ REVIEW ──→ SHIP ──→ OPERATE
-  │        │       │        │         │          │        │        │
-  brainstorm  spec   planning incremental debug  code   shipping observability
-  interview  (PRD)  (HOW+    + TDD   +recovery review + CI/CD  + monitor
-  idea-refine WHAT/  ORDER)  +context                 + deprecation
-              WHY   impl-plan +source-driven
-                    + tasks
+┌──────┐      ┌──────┐      ┌──────┐      ┌──────┐      ┌──────┐      ┌──────┐      ┌──────┐
+│ IDEA │ ───▶ │ SPEC │ ───▶ │ PLAN │ ───▶ │BUILD │ ───▶ │VERIFY│ ───▶ │REVIEW│ ───▶ │ SHIP │
+│Brain │      │ PRD  │      │ HOW  │      │ Code │      │ Test │      │ Gate │      │  Go  │
+└──────┘      └──────┘      └──────┘      └──────┘      └──────┘      └──────┘      └──────┘
+ /spec         /spec         /plan         /build       /verify       /review        /ship  
 ```
 
 ## Contract per Phase
