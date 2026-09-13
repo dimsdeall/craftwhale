@@ -1,11 +1,11 @@
-description = "PLAN — dari PRD (WHAT/WHY) jadi implementation plan (HOW) + tasks terurut (ORDER) — semua di docs/specs/"
+description = "PLAN — from PRD (WHAT/WHY) to implementation plan (HOW) + ordered tasks (ORDER) — all in docs/specs/"
 
 prompt = """
 Invoke planning-and-task-breakdown as orchestrator, with context-engineering, api-and-interface-design, database-schema-designer, and source-driven-development as needed. ALL outputs live under docs/specs/.
 
 Precondition: approved PRD must exist in docs/specs/active/<spec-id>/prd.md (or docs/specs/active/<spec-id>-<module>/prd.md for Epic). If none, stop and tell user to run /spec first — do not invent requirements. Resolve <spec-id> from the PRD path the user just approved, or if ambiguous, ask which active spec to plan (single-choice list of docs/specs/active/*/prd.md).
 
-Collision guard: if docs/specs/active/ contains other specs with unchecked todos and the new plan touches overlapping files/modules (from the new PRD's Requirements), warn exactly like /spec step 7 (overlap + active spec link) and ask Gabung/Pisah/Tunda before writing.
+Collision guard: if docs/specs/active/ contains other specs with unchecked todos and the new plan touches overlapping files/modules (from the new PRD's Requirements), warn exactly like /spec step 7 (overlap + active spec link) and ask Merge/Separate/Defer before writing.
 
 Phase 1 — Implementation Plan (HOW):
 1. Enter plan mode — read only, no code. Read docs/specs/active/<spec-id>/prd.md and relevant codebase sections (patterns, schema, ADRs, stack). Also read docs/specs/active/<spec-id>/prd.md's Out of Scope to avoid leaking non-goals into the plan.

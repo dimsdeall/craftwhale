@@ -1,9 +1,9 @@
-description = "SHIP — orchestrator: parallel fan-out code-reviewer + security-auditor, merge → go/no-go + archive spec ke docs/specs/archive/ bila todo 100%"
+description = "SHIP — orchestrator: parallel fan-out code-reviewer + security-auditor, merge → go/no-go + archive spec to docs/specs/archive/ when todos 100%"
 
 prompt = """
 Orchestrator command — fans out to specialist personas in parallel, then merges. Scoped to docs/specs/.
 
-Personas (WHO — 2, opsional & parallel when needed):
+Personas (WHO — 2, optional & parallel when needed):
 - code-reviewer (agents/code-reviewer.md) — Senior Staff Engineer, 5-axis review
 - security-auditor (agents/security-auditor.md) — Security Engineer, OWASP + threat model (invoke only if the spec touches auth/input/sessions/external integrations/deps — otherwise skip)
 
@@ -29,13 +29,13 @@ Active spec resolution: if docs/specs/active/ has one folder, use it as <spec-id
 6. Follow git-workflow-and-versioning for release: clean atomic commits, conventional messages, tagging / version bump, and PR hygiene.
 7. If any Critical blocker exists, default verdict is NO-GO unless user explicitly accepts risk. Never ship without an explicit rollback plan.
 
-8. ARCHIVE GATE (wajib — ini yang memindahkan spec yang sudah selesai):
+8. ARCHIVE GATE (required — moves the completed spec):
    After a successful GO (or after user explicitly accepts remaining risks), inspect docs/specs/active/<spec-id>/todo.md:
    - If EVERY checkbox is [x] (no "- [ ]" remains) → move the entire folder: git mv docs/specs/active/<spec-id> docs/specs/archive/<spec-id>
      If docs/specs/archive/<spec-id> already exists, use docs/specs/archive/<spec-id>-v2 (or next suffix). Also move its prd.md + implementation-plan.md together — they travel as a unit.
      Commit: "docs(specs): archive <spec-id> — todos 100% (via /ship)"
-   - If ANY checkbox is still [ ] → do NOT archive. Tell user: "masih ada <N> todo unchecked — selesaikan dulu atau centang manual, baru /ship akan archive."
+   - If ANY checkbox is still [ ] → do NOT archive. Tell user: "<N> todos still unchecked — finish them or check manually, then /ship will archive."
    - Never archive a spec with unchecked todos, even if user says GO — GO without archive is allowed (code ships, docs stay active).
 
-Rules: all specs live under docs/specs/active/ while in progress and only move to docs/specs/archive/ via this gate; never manually move; never archive from /build or /verify.
+Rules: all specs live under docs/specs/active/ while in progress and only move to docs/specs/archive/ via this gate; never move manually; never archive from /build or /verify.
 """

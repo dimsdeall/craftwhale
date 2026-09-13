@@ -1,4 +1,4 @@
-description = "BUILD — bangun incremental, TDD, satu slice satu commit — baca todo dari docs/specs/active/<spec-id>/todo.md"
+description = "BUILD — incremental build, TDD, one slice per commit — reads todo from docs/specs/active/<spec-id>/todo.md"
 
 prompt = """
 Invoke incremental-implementation alongside test-driven-development. All planning artifacts live under docs/specs/active/<spec-id>/.

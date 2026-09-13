@@ -1,4 +1,4 @@
-description = "EXPLAIN-CODE — jelaskan arsitektur, skema, dan fitur codebase (read-only, opsional) — outputs ke docs/ bila diminta save"
+description = "EXPLAIN-CODE — explain architecture, schema, and features (read-only, optional) — saves to docs/ when requested"
 
 prompt = """
 Optional explain command — does NOT modify code. Read-only. Explains architecture, schema, and features. All saved outputs live under docs/.
@@ -9,10 +9,10 @@ Skills it orchestrates (invoke conditionally — one or more, never all blindly)
 - write-feature-docs — feature documentation from existing code
 
 Flow:
-1. Determine what user wants explained. If "arsitektur" → (a) Architecture; "skema"/"schema"/"ERD"/"database"/"tabel" → (b) Schema; "fitur"/"feature"/"apa aja yang ada" → (c) Feature docs. If ambiguous, ask one question with 3 choices:
-   (a) Architecture — struktur modul, seams, deep vs shallow, hot spots
+1. Determine what user wants explained. If "architecture" → (a) Architecture; "schema"/"ERD"/"database"/"tables" → (b) Schema; "feature"/"features" → (c) Feature docs. If ambiguous, ask one question with 3 choices:
+   (a) Architecture — module structure, seams, deep vs shallow, hot spots
    (b) Schema — data model / DB schema / relations / ERD (Mermaid)
-   (c) Feature — daftar & penjelasan fitur yang sudah ada
+   (c) Feature — list & explain existing features
    Default if unsure: (a) then offer (b)/(c). Multiple choices allowed.
 
 2. Explore read-only — do not edit code:
