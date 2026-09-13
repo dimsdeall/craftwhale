@@ -4,7 +4,7 @@
 
 Production-grade agent skills — a full **Idea → Ship** lifecycle. **30 skills + 2 personas + 8 slash commands**, curated from open sources and wired to work together under one contract.
 
-Works with 70+ agents (Claude Code, Cursor, Codex, Copilot, Cline, OpenCode, Hermes, etc.) via the open `skills` CLI. Repo is **private** — `gh auth login` as `dimsdeall` or be added as collaborator.
+Works with 70+ agents (Claude Code, Cursor, Codex, Copilot, Cline, OpenCode, Hermes, etc.) via the open `skills` CLI.
 
 ## Install
 

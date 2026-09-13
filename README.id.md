@@ -4,7 +4,7 @@
 
 Kumpulan agent skills production-grade — lifecycle lengkap **Idea → Ship**. **30 skills + 2 persona + 8 slash command**, dikurasi dari sumber terbuka dan dirangkai dalam satu kontrak.
 
-Kompatibel dengan 70+ agent (Claude Code, Cursor, Codex, Copilot, Cline, OpenCode, Hermes, dll.) via CLI open `skills`. Repo ini **private** — `gh auth login` sebagai `dimsdeall` atau minta akses sebagai collaborator.
+Kompatibel dengan 70+ agent (Claude Code, Cursor, Codex, Copilot, Cline, OpenCode, Hermes, dll.) via CLI open `skills`.
 
 ## Instalasi
 

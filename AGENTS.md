@@ -20,7 +20,7 @@ Koleksi **30 Agent Skills + 8 Commands** — 6 CORE (Spec → Ship) + 2 OPSIONAL
 - `brainstorming` adalah **gerbang pertama** sebelum semua skill lain — klasifikasi Spike/Bounded/Architectural + hard-gate approval sebelum coding. Jangan skip.
 - Shared checklist di `references/` — referensikan via path relatif dari skill.
 - Skill baru: duplikasi skill terdekat sebagai template → edit frontmatter → push.
-- Setelah tambah/edit skill → test: `npx skills add dimsdeall/my-skills --list` harus muncul (private → butuh gh auth dimsdeall).
+- Setelah tambah/edit skill → test: `npx skills add dimsdeall/my-skills --list` harus muncul (`Found 30 skills`).
 
 ## Intent → Skill Mapping (untuk agent yang pakai repo ini via `npx skills add dimsdeall/my-skills`)
 

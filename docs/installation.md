@@ -1,7 +1,6 @@
 # Installation
 
-> Repo is **private** — run `gh auth login` as `dimsdeall` or be added as collaborator.
-> Default fast path still works: `npx skills add dimsdeall/my-skills --list` → `npx skills add dimsdeall/my-skills`.
+> Works with 70+ agents via the open `skills` CLI: `npx skills add dimsdeall/my-skills --list` → `npx skills add dimsdeall/my-skills`.
 > This page is the **per-category manual** — pick only what you need, for the agent you use.
 
 ## 1. Pick by Category — What Do You Want to Install?
@@ -26,10 +25,10 @@ Don't install everything if you don't need it. Pick categories one by one.
 ## 2. Get the Repo (once)
 
 ```bash
-# via gh (private repo — authenticated)
+# via gh
 gh repo clone dimsdeall/my-skills /tmp/my-skills
 
-# or https (will prompt for auth)
+# or https
 git clone https://github.com/dimsdeall/my-skills.git /tmp/my-skills
 ```
 
@@ -141,7 +140,7 @@ timeout 40 opencode run --model litellm/openagentic/claude-sonnet-4.6 "Reply wit
 Antigravity installs the whole repo as a native plugin — then invoke skills per category (one by one).
 
 ```bash
-# Recommended — from remote (private repo needs gh auth)
+# Recommended — from remote
 agy plugin install https://github.com/dimsdeall/my-skills.git
 
 # Or from local clone
